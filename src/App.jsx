@@ -21,11 +21,12 @@ Clarity.init(projectId);
 /* ───────────────────────────────────── Full Resume Data */
 const resumeData = {
   basics: {
-    name: 'Mian Zhu',
-    email: 'mian@zhumian.ca',
-    phone: '778-350-0225',
-    location: 'Victoria, BC'
+    name: import.meta.env.VITE_NAME,
+    email: import.meta.env.VITE_EMAIL,
+    phone: import.meta.env.VITE_PHONE,
+    location: import.meta.env.VITE_LOCATION,
   },
+
   summary: `<ul>
   <li><strong>Proactive IT Desktop Support Technician</strong> with 2+ years of experience in enterprise IT and tech retail environments.</li>
   <li>Skilled in endpoint management using Microsoft Intune, including policy deployment and device compliance.</li>
