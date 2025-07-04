@@ -236,7 +236,7 @@ const App = () => {
     className="flex items-center gap-2"
   >
     <FontAwesomeIcon icon={faLinkedin} size="lg" />
-    LinkedIn
+    &nbsp;LinkedIn
   </a>
   <a
     href="https://www.instagram.com/zhu_mian/" 
@@ -245,7 +245,7 @@ const App = () => {
     className="flex items-center gap-2"
   >
     <FontAwesomeIcon icon={faInstagram} size="lg" />
-    Instagram
+    &nbsp;Instagram
   </a>
 </div>
 
