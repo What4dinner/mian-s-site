@@ -1,378 +1,97 @@
-import React, { useRef } from 'react';
-import LiquidGlass from 'liquid-glass-react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faLinkedin } from '@fortawesome/free-brands-svg-icons';
-import { faInstagram } from '@fortawesome/free-brands-svg-icons';
-import Clarity from '@microsoft/clarity';
-import {
-  Briefcase,
-  Zap,
-  GraduationCap,
-  Award,
-  Heart,
-  Quote
-} from 'lucide-react';
-import './App.css';
+import { useEffect, useRef, useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faInstagram, faLinkedin } from "@fortawesome/free-brands-svg-icons";
+import { ArrowDownRight, ArrowUpRight, Mail, MapPin, Menu, X } from "lucide-react";
+import Clarity from "@microsoft/clarity";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
+import "./App.css";
+import photoNight from "./assets/photography/IMG_2839.jpg";
+import photoMountain from "./assets/photography/background.jpg";
+import photoDunes from "./assets/photography/01ea5017c58dc49c2d71447c73c6abf35bf81e0128.jpg";
+import photoCoast from "./assets/photography/0149195a3c50b33ff26a6f8ae83a19bb32f5e1afe6.jpg";
 
-const projectId = "s1lra536cv"
+gsap.registerPlugin(ScrollTrigger, useGSAP);
+Clarity.init("s1lra536cv");
 
-Clarity.init(projectId);
+const profile = { role: "Senior Computer Lab Administrator", organization: "University of Victoria", email: import.meta.env.VITE_EMAIL, location: import.meta.env.VITE_LOCATION };
 
-/* ───────────────────────────────────── Full Resume Data */
-const resumeData = {
-  basics: {
-    name: import.meta.env.VITE_NAME,
-    email: import.meta.env.VITE_EMAIL,
-    phone: import.meta.env.VITE_PHONE,
-    location: import.meta.env.VITE_LOCATION,
-  },
+const experience = [
+  { dates: "2026 — PRESENT", title: "Senior Computer Lab Administrator", organization: "University of Victoria", tags: ["Windows 365", "Azure Virtual Desktop", "Intune", "Infrastructure", "Project Delivery"], description: "Leading the design and operation of modern physical and virtual computing environments for university teaching and learning.", link: "https://www.uvic.ca/systems/" },
+  { dates: "2025 — 2026", title: "Desktop Support Analyst", organization: "University of Victoria", tags: ["Entra ID", "Intune", "Windows", "macOS", "Linux"], description: "Enterprise endpoint administration, Tier 2 troubleshooting, deployment, and technical project support across mixed-platform environments.", link: "https://www.uvic.ca/" },
+  { dates: "2023 — 2025", title: "IT Desktop Support Technician", organization: "Terra Remote Sensing Inc.", tags: ["Active Directory", "Entra ID", "PowerShell", "Networking", "Automation"], description: "Supported a 100+ user hybrid Windows environment and built automation workflows that reduced repetitive support work.", link: "https://www.terraremote.com/" },
+  { dates: "2022 — 2024", title: "Geek Squad Agent", organization: "Best Buy Canada", tags: ["Diagnostics", "Hardware", "Networking", "Data Migration", "Customer Support"], description: "Delivered in-store, remote, and on-site support across computers, mobile devices, televisions, and smart-home technology.", link: "https://www.bestbuy.ca/en-ca/services/geek-squad-services/bltb5f906bfb57d7744" },
+];
 
-  summary: `<ul>
-  <li><strong>Proactive IT Desktop Support Technician</strong> with 2+ years of experience in enterprise IT and tech retail environments.</li>
-  <li>Skilled in endpoint management using Microsoft Intune, including policy deployment and device compliance.</li>
-  <li>Experienced in user support across Microsoft 365 apps (Teams, Outlook, SharePoint, OneDrive).</li>
-  <li>Strong break/fix abilities with hands-on troubleshooting of hardware, software, and networking issues.</li>
-  <li>Proficient in automation using PowerShell, Power Automate, and Python to reduce manual workload.</li>
-  <li>Hands-on experience managing Active Directory, Microsoft Entra (Azure AD), and Exchange environments.</li>
-  <li>Self-motivated, organized, and able to perform under pressure with a focus on security and documentation.</li>
-  <li>Clear communicator with a proactive and problem-solving approach.</li>
-</ul>`,
-  experience: [
-    {
-      position: 'IT Desktop Support Technician',
-      company: 'Terra Remote Sensing Inc.',
-      location: 'North Saanich, BC',
-      date: 'August 2023 – Present',
-      summary: `<ul>
-        <li><p><strong>Endpoint Management & Deployment:</strong><br>Managed and secured 200+ mobile, desktop, and laptop devices using Microsoft Intune. Analysed, created, and deployed security policies and configuration profiles to ensure compliance and standardisation across all endpoints.</p></li>
-        <li><p><strong>Technical Support & Break/Fix:</strong><br>Provided comprehensive hardware, software, and network troubleshooting for a 100-employee Windows environment, supporting Microsoft 365 apps (Teams, Outlook, OneDrive, SharePoint) via email, Teams, and phone.</p></li>
-        <li><p><strong>Automation & Scripting:</strong><br>Developed PowerShell, Python, and Power Automate workflows that reduced manual ticket load by 30%.</p></li>
-        <li><p><strong>Cloud & Directory Management:</strong><br>Administered Active Directory and Microsoft Entra; gained hands-on experience with AWS EC2/S3 for future migration planning.</p></li>
-      </ul>`,
-      link: 'https://www.terraremote.com/'
-    },
-    {
-      position: 'Geek Squad Agent',
-      company: 'Best Buy Canada',
-      location: 'Victoria, BC',
-      date: 'June 2022 – August 2023 · September 2024 – December 2024',
-      summary: `<ul>
-        <li><p>Delivered <strong>in-store, remote, and on-site support</strong> for computers, mobile devices, and smart-home tech, maintaining 90% customer satisfaction.</p></li>
-        <li><p>Diagnosed and repaired <strong>hardware, software, and networking issues</strong> across desktops, laptops, tablets, TVs, and IoT devices.</p></li>
-        <li><p>Provided personalised training on device features and best practices, reducing repeat visits by 20%.</p></li>
-        <li><p>Performed new-device setup and data migrations to ensure smoother customer onboarding.</p></li>
-      </ul>`,
-      link: 'https://www.bestbuy.ca/en-ca/services/geek-squad-services/bltb5f906bfb57d7744'
-    }
-  ],
-  education: [
-    {
-      degree: 'Certificate · Information and Computer Systems Technology',
-      institution: 'Camosun College',
-      date: 'Jan 2023 – Dec 2023',
-      summary:
-        '<p>Completed intensive coursework in HTML, CSS, Java, Python, Linux, and SQL, gaining practical experience in software development, network administration, and cybersecurity fundamentals.</p>',
-      link:
-        'https://camosun.ca/programs-courses/find-program/information-and-computer-systems-technologist-diploma'
-    },
-    {
-      degree: 'Bachelor of Arts · Economics (Major) & Business (Minor)',
-      institution: 'University of Victoria',
-      date: 'Apr 2017 – Aug 2019',
-      summary: `<ul>
-        <li><p>Developed strong analytical and quantitative skills through economic modelling and data analysis.</p></li>
-        <li><p>Enhanced communication and presentation abilities via capstone projects and seminars.</p></li>
-        <li><p>Applied critical-thinking to evaluate global market trends and business strategies.</p></li>
-      </ul>`,
-      link: 'https://www.uvic.ca/socialsciences/economics/index.php'
-    }
-  ],
+const projects = [
+  { number: "01", eyebrow: "FEATURED / INFRASTRUCTURE", title: "Designing a cloud-based university computer lab.", name: "Virtual Lab Platform", challenge: "Provide students reliable access to Windows learning environments beyond traditional physical computer labs.", role: "Architecture · Requirements · Endpoint Management · Security · Project Planning · Deployment", technologies: ["Windows 365", "Azure Virtual Desktop", "Intune", "Entra ID"], status: "Pilot / 2026", link: "#contact" },
+  { number: "02", eyebrow: "WEB / INFRASTRUCTURE", title: "KXC Trading", name: "Business website and cloud hosting", challenge: "Planned, built, and deployed a WordPress site with domain, DNS, AWS EC2 hosting, SES mail delivery, theme customization, and SEO tooling.", technologies: ["WordPress", "AWS EC2", "DNS"], link: "https://kxctrading.ca/" },
+  { number: "03", eyebrow: "WEB / MULTILINGUAL", title: "Happy Lamb Hot Pot Canada", name: "Responsive restaurant experience", challenge: "Designed and developed a static restaurant website with multilingual support and a custom JavaScript language switcher.", technologies: ["HTML", "CSS", "JavaScript"], link: "https://happylambhotpotca.com/" },
+];
 
-projects: [
-  {
-    name: 'KXC Trading WordPress Website',
-    description:
-      'Planned, built, and deployed a full WordPress website for a friend’s trading business. Set up domain and DNS, hosted the site on AWS EC2, and configured AWS Simple Email Service (SES) for contact form functionality. Customized theme and optimized SEO using plugins and Google tools.',
-    link: 'https://kxctrading.ca/'
-  },
-  {
-    name: 'Happy Lamb Hot Pot Canada Website',
-     description:
-      'Designed and developed a static restaurant website using HTML, CSS, and JavaScript. Managed domain registration and DNS setup. Implemented a custom multilingual interface supporting English, Chinese, and French using JavaScript-based language toggling. Responsive design with menu, business hours, and map.',
-    link: 'https://happylambhotpotca.com/'
-  },
-  {
-    name: 'Personal Resume Site',
-    description:
-      'This site — built with React and Vite, styled with custom components, and hosted on Firebase with a custom domain (zhumian.ca). Full end-to-end setup including domain registration, DNS management, and SEO optimization for discoverability.',
-    link: 'https://zhumian.ca'
-  }
-],
+const capabilities = [
+  { title: "Infrastructure", items: ["Azure", "Windows 365", "Azure Virtual Desktop", "Networking", "Virtual Labs"] },
+  { title: "Endpoint", items: ["Intune", "Entra ID", "Windows", "macOS", "Linux", "Application Deployment"] },
+  { title: "Automation", items: ["PowerShell", "Python", "Power Automate", "Scripting"] },
+  { title: "Security", items: ["Identity", "Access Controls", "Compliance", "Endpoint Security", "Device Posture"] },
+  { title: "Delivery", items: ["Architecture", "Project Planning", "Documentation", "Stakeholder Collaboration", "Technical Support"] },
+];
 
-  certifications: [
-    {
-      name: 'Cisco Certified Network Associate (CCNA)',
-      issuer: 'Cisco',
-      date: 'May 2025',
-      logo: '/ccna_large.jpg',
-      link: '/Cisco%20Certified%20Network%20Associate%20certificate.pdf'
-    },
-    {
-      name: 'Microsoft 365 Certified: Endpoint Administrator Associate',
-      issuer: 'Microsoft',
-      date: 'Sep 2024',
-      logo: '/microsoft-certified-associate-badge.svg',
-      link: '/Credentials%20-%20mianzhu-4820%20_%20Microsoft%20Learn.pdf'
-    }
-  ],
-  skills: [
-    'Tech Support',
-    'Routing & Switching',
-    'Microsoft Intune',
-    'Endpoint Management',
-    'Active Directory (AD DC)',
-    'Entra ID (Azure AD)',
-    'PowerShell',
-    'Microsoft Office',
-    'Automation (Power Automate / Python)',
-    'Communication Skills'
-  ],
-  interests: ['Photography', 'Networking', 'Artificial Intelligence', 'Camping', 'Video Games','Building WordPress & Custom Sites for Friends & Local Businesses'],
-  references: ['Available upon request']
-};
+const credentials = [
+  { name: "Microsoft Certified: Azure Virtual Desktop Specialty", issuer: "Microsoft", date: "August 2026", badge: "/microsoft-certified-specialty-badge.svg", link: "/az-140.png" },
+  { name: "CompTIA Security+", issuer: "CompTIA", date: "March 2026", badge: "/security-bage.png", link: "/CompTIA Security+ ce certificate.pdf" },
+  { name: "Cisco Certified Network Associate (CCNA)", issuer: "Cisco", date: "May 2025", badge: "/ccna_large.jpg", link: "/Cisco%20Certified%20Network%20Associate%20certificate.pdf" },
+  { name: "Microsoft 365 Certified: Endpoint Administrator Associate", issuer: "Microsoft", date: "September 2024", badge: "/microsoft-certified-associate-badge.svg", link: "/Credentials%20-%20mianzhu-4820%20_%20Microsoft%20Learn.pdf" },
+];
 
-/* Helpers */
-const getInitials = (name) => {
-  if (!name) return '';
-  const parts = name.trim().split(' ');
-  return parts[0][0] + (parts.length > 1 ? parts[parts.length - 1][0] : '');
-};
+const photos = [
+  { src: photoNight, alt: "Stars above a dark shoreline at night" },
+  { src: photoMountain, alt: "Layered mountain range beyond a green valley" },
+  { src: photoDunes, alt: "A photographer standing on white sand dunes beneath dramatic clouds" },
+  { src: photoCoast, alt: "Aerial view of waves meeting a forested coastline" },
+];
 
-const CertTag = ({ cert }) => (
-  <a
-    href={cert.link}
-    target="_blank"
-    rel="noopener noreferrer"
-    className="cert-tag skill-tag"
-    title="Click to view certification"
-  >
-    {cert.logo && (
-      <div className="cert-logo-wrapper">
-        <img src={cert.logo} alt={cert.name} className="cert-logo" />
-      </div>
-    )}
-    <span>{cert.name}</span>
-  </a>
-);
+const navItems = [["work", "Work"], ["experience", "Experience"], ["credentials", "Credentials"], ["photography", "Photography"], ["contact", "Contact"]];
 
+function SectionHeader({ number, label, title, intro }) {
+  return <header className="section-header reveal"><p className="section-label">{number} / {label}</p>{title ? <h2>{title}</h2> : null}{intro ? <p className="section-intro">{intro}</p> : null}</header>;
+}
 
+function Navigation() {
+  const [open, setOpen] = useState(false);
+  useEffect(() => { const close = () => setOpen(false); window.addEventListener("resize", close); return () => window.removeEventListener("resize", close); }, []);
+  return <header className="site-nav"><div className="shell nav-inner"><a className="wordmark" href="#top" aria-label="Mian Zhu, home">MZ<span>.</span></a><button className="menu-button" type="button" aria-expanded={open} aria-controls="primary-navigation" onClick={() => setOpen(!open)}><span>{open ? "Close" : "Menu"}</span>{open ? <X size={19} /> : <Menu size={19} />}</button><nav id="primary-navigation" className={open ? "nav-links is-open" : "nav-links"} aria-label="Primary navigation">{navItems.map(([id, label]) => <a key={id} href={`#${id}`} onClick={() => setOpen(false)}>{label}</a>)}</nav></div></header>;
+}
 
-const App = () => {
-  const appRef = useRef(null);
+function App() {
+  const pageRef = useRef(null);
+  useGSAP(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    gsap.from(".hero-reveal", { y: 28, opacity: 0, duration: 0.85, stagger: 0.1, ease: "power3.out" });
+    gsap.utils.toArray(".reveal").forEach((element) => gsap.from(element, { y: 34, opacity: 0, duration: 0.75, ease: "power3.out", scrollTrigger: { trigger: element, start: "top 88%", once: true } }));
+  }, { scope: pageRef });
 
-  return (
-    <div className="app-wrapper" ref={appRef}>
-      {/* Background */}
-      <LiquidGlass
-        mouseContainer={appRef}
-        blurAmount={0.2}
-        displacementScale={40}
-        glassColor="rgba(255,255,255,0.08)"
-        cornerRadius={0}
-        style={{ position: 'fixed', inset: 0, zIndex: -1 }}
-      />
+  return <div className="site" id="top" ref={pageRef}>
+    <a className="skip-link" href="#main-content">Skip to content</a><div className="background-grid" aria-hidden="true" /><Navigation />
+    <main id="main-content">
+      <section className="hero shell" aria-labelledby="hero-title"><div className="hero-content"><p className="hero-eyebrow hero-reveal">Mian Zhu</p><h1 id="hero-title" className="hero-reveal">Building reliable <span>cloud &amp; endpoint</span> infrastructure.</h1><p className="hero-copy hero-reveal">I design, automate, and operate modern Windows environments across Azure, Intune, Entra ID, Windows 365, and Azure Virtual Desktop — combining hands-on engineering with security and project delivery.</p><div className="hero-actions hero-reveal"><a className="button button-primary" href="#work">View selected work <ArrowDownRight size={18} /></a><a className="button button-secondary" href="#experience">Résumé <ArrowDownRight size={18} /></a></div></div><div className="hero-credibility hero-reveal"><p><span className="status-dot" aria-hidden="true" />{profile.role} <span className="subtle">@ {profile.organization}</span></p><p>Azure Virtual Desktop · Security+ · CCNA · Microsoft 365 Endpoint Administrator</p></div><a className="scroll-cue" href="#work" aria-label="Scroll to selected work"><span>Scroll</span><ArrowDownRight size={18} /></a></section>
 
-<div className="container responsive-layout">
-        {/* ───────── Sidebar (desktop only personal info) ───────── */}
-        <aside className="sidebar">
-          {/* personal info visible on desktop */}
-          <div className="sidebar-header hide-on-mobile">
-            <div className="initials-circle">{getInitials(resumeData.basics.name)}</div>
-            <div className="header-text">
-              <h1 className="name">{resumeData.basics.name}</h1>
-              <h2 className="title">IT Desktop Support Technician</h2>
-            </div>
-          </div>
+      <section className="section work-section" id="work"><div className="shell"><SectionHeader number="01" label="Selected work" title="Selected systems and digital work." intro="A small selection of infrastructure and web projects, focused on the problem, ownership, and delivery." /><article className="featured-project reveal"><div className="project-index">{projects[0].number}</div><div className="featured-project-main"><p className="project-eyebrow">{projects[0].eyebrow}</p><p className="project-name">{projects[0].name}</p><h3>{projects[0].title}</h3><div className="tag-row">{projects[0].technologies.map((item) => <span className="tag" key={item}>{item}</span>)}</div></div><div className="project-brief"><div><span>Challenge</span><p>{projects[0].challenge}</p></div><div><span>Role</span><p>{projects[0].role}</p></div><div className="project-status"><span>Status</span><p><i /> {projects[0].status}</p></div><a className="text-link" href={projects[0].link}>Discuss the project <ArrowUpRight size={16} /></a></div></article><div className="project-grid">{projects.slice(1).map((project) => <article className="project-card reveal" key={project.title}><div className="project-card-top"><span>{project.number}</span><span>{project.eyebrow}</span></div><div><p className="project-name">{project.name}</p><h3>{project.title}</h3><p>{project.challenge}</p></div><div><div className="tag-row">{project.technologies.map((item) => <span className="tag" key={item}>{item}</span>)}</div><a className="text-link" href={project.link} target="_blank" rel="noopener noreferrer">View project <ArrowUpRight size={16} /></a></div></article>)}</div></div></section>
 
-          {/* Contact (desktop only) */}
-          <div className="contact-info hide-on-mobile">
-            <div className="contact-item"><span className="contact-label">Email:</span><a href={`mailto:${resumeData.basics.email}`}>{resumeData.basics.email}</a></div>
-            <div className="contact-item"><span className="contact-label">Phone:</span><a href={`tel:${resumeData.basics.phone}`}>{resumeData.basics.phone}</a></div>
-            <div className="contact-item"><span className="contact-label">Location:</span><span>{resumeData.basics.location}</span></div>
-          </div>
+      <section className="section" id="experience"><div className="shell"><SectionHeader number="02" label="Experience" title="Progress built through hands-on ownership." /><div className="experience-list">{experience.map((item) => <article className="experience-row reveal" key={`${item.title}-${item.dates}`}><p className="experience-date">{item.dates}</p><div className="experience-title"><h3>{item.title}</h3><a href={item.link} target="_blank" rel="noopener noreferrer">{item.organization} <ArrowUpRight size={14} /></a></div><div className="experience-detail"><div className="tag-row">{item.tags.map((tag) => <span className="tag" key={tag}>{tag}</span>)}</div><p>{item.description}</p></div></article>)}</div></div></section>
 
-          {/* Skills */}
-          <section id="skills-sidebar">
-            <h3 className="sidebar-section-title flex items-center gap-2">
-              <Zap size={18} /> Skills
-            </h3>
-            <div className="skills-grid">
-              {resumeData.skills.map((skill) => (
-                <span key={skill} className="skill-tag">
-                  {skill}
-                </span>
-              ))}
-            </div>
-          </section>
+      <section className="section capability-section" id="capabilities"><div className="shell"><SectionHeader number="03" label="Capabilities" title="From architecture to everyday operations." /><div className="capability-grid">{capabilities.map((group, index) => <article className="capability-card reveal" key={group.title}><span>0{index + 1}</span><h3>{group.title}</h3><ul>{group.items.map((item) => <li key={item}>{item}</li>)}</ul></article>)}</div></div></section>
 
-          {/* Certifications */}
-          <section id="certifications-sidebar" className="mt-6">
-            <h3 className="sidebar-section-title flex items-center gap-2">
-              <Award size={18} /> Certifications
-            </h3>
-            <div className="skills-grid">
-              {resumeData.certifications.map((c) => (
-                <CertTag key={c.name} cert={c} />
-              ))}
-            </div>
-          </section>
+      <section className="section" id="credentials"><div className="shell"><SectionHeader number="04" label="Credentials" title="Independent validation of practical expertise." intro="Cloud, endpoint, security, and networking credentials that reinforce the work." /><div className="credential-list">{credentials.map((credential) => <a className="credential-row reveal" href={credential.link} target="_blank" rel="noopener noreferrer" key={credential.name}><span className="badge-frame"><img src={credential.badge} alt="" loading="lazy" /></span><span className="credential-name"><small>{credential.issuer}</small><strong>{credential.name}</strong></span><span className="credential-date">{credential.date}</span><ArrowUpRight className="credential-arrow" size={19} /></a>)}</div></div></section>
 
-          {/* Social */}
-<div className="social-links">
-  <a
-    href="https://www.linkedin.com/in/mian-zhu-7547215a/"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="flex items-center gap-2"
-  >
-    <FontAwesomeIcon icon={faLinkedin} size="lg" />
-    &nbsp;LinkedIn
-  </a>
-  <a
-    href="https://www.instagram.com/zhu_mian/" 
-    target="_blank"
-    rel="noopener noreferrer"
-    className="flex items-center gap-2"
-  >
-    <FontAwesomeIcon icon={faInstagram} size="lg" />
-    &nbsp;Instagram
-  </a>
-</div>
+      <section className="section about-section" id="about"><div className="shell about-grid"><SectionHeader number="05" label="About" /><div className="about-copy reveal"><h2>I like systems that make difficult work feel simple.</h2><p>I’m an infrastructure and endpoint professional interested in the space where architecture, automation, security, and real people meet. I enjoy tracing problems to their source, making technology more dependable, and documenting the path so the next person has an easier time.</p><p>Away from systems work, photography gives me another way to observe carefully, find structure, and stay curious.</p></div></div></section>
 
+      <section className="section photo-section" id="photography"><div className="shell"><SectionHeader number="06" label="Off the clock" title="Places I’ve stopped long enough to notice." /><div className="photo-grid">{photos.map((photo, index) => <figure className={`photo photo-${index + 1} reveal`} key={photo.src}><img src={photo.src} alt={photo.alt} loading="lazy" /><figcaption>0{index + 1}</figcaption></figure>)}</div></div></section>
 
-        </aside>
-
-        {/* ───────── Main Content ───────── */}
-        <main className="main-content">
-          {/* mobile personal info appears at top on phones */}
-          <section className="mobile-personal show-on-mobile">
-            <div className="initials-circle">{getInitials(resumeData.basics.name)}</div>
-            <div className="header-text">
-              <h1 className="name">{resumeData.basics.name}</h1>
-              <h2 className="title">IT Desktop Support Technician</h2>
-            </div>
-            <div className="contact-info">
-              <div className="contact-item"><span className="contact-label">Email:</span><a href={`mailto:${resumeData.basics.email}`}>{resumeData.basics.email}</a></div>
-              <div className="contact-item"><span className="contact-label">Phone:</span><a href={`tel:${resumeData.basics.phone}`}>{resumeData.basics.phone}</a></div>
-              <div className="contact-item"><span className="contact-label">Location:</span><span>{resumeData.basics.location}</span></div>
-            </div>
-          </section>
-
-          {/* SUMMARY */}
-          <section id="summary">
-            <h3>Summary</h3>
-            <div className="richtext" dangerouslySetInnerHTML={{ __html: resumeData.summary }} />
-          </section>
-
-          {/* EXPERIENCE */}
-          <section id="experience">
-            <h3 className="flex items-center gap-2">
-              <Briefcase size={18} /> Experience
-            </h3>
-            {resumeData.experience.map((job) => (
-              <div key={job.company} className="item">
-                <h4>
-                  {job.position}{' '}
-                  <span>
-                    @{' '}
-                    <a href={job.link} target="_blank" rel="noopener noreferrer">
-                      {job.company}
-                    </a>
-                  </span>
-                </h4>
-                <p className="date">
-                  {job.location && `${job.location} · `} {job.date}
-                </p>
-                <div
-                  className="richtext"
-                  dangerouslySetInnerHTML={{ __html: job.summary }}
-                />
-              </div>
-            ))}
-          </section>
-
-          {/* EDUCATION */}
-          <section id="education">
-            <h3 className="flex items-center gap-2">
-              <GraduationCap size={18} /> Education
-            </h3>
-            {resumeData.education.map((edu) => (
-              <div key={edu.institution} className="item">
-                <h4>
-                  <a href={edu.link} target="_blank" rel="noopener noreferrer">
-                    {edu.degree}
-                  </a>
-                </h4>
-                <p className="date">
-                  {edu.institution} · {edu.date}
-                </p>
-                {edu.summary && (
-                  <div
-                    className="richtext"
-                    dangerouslySetInnerHTML={{ __html: edu.summary }}
-                  />
-                )}
-              </div>
-            ))}
-          </section>
-
-          {/* PROJECTS */}
-<section id="projects">
-  <h3 className="flex items-center gap-2">
-    <Briefcase size={18} /> Projects
-  </h3>
-  {resumeData.projects.map((project) => (
-    <div key={project.name} className="item">
-      <h4>
-        {project.link ? (
-          <a href={project.link} target="_blank" rel="noopener noreferrer">
-            {project.name}
-          </a>
-        ) : (
-          project.name
-        )}
-      </h4>
-      <p className="description">{project.description}</p>
-    </div>
-  ))}
-</section>
-
-
-          {/* INTERESTS */}
-          <section id="interests">
-            <h3 className="flex items-center gap-2">
-              <Heart size={18} /> Interests
-            </h3>
-            <div className="skills-grid">
-              {resumeData.interests.map((interest) => (
-                <span key={interest} className="skill-tag">
-                  {interest}
-                </span>
-              ))}
-            </div>
-          </section>
-
-          {/* REFERENCES */}
-          <section id="references">
-            <h3 className="flex items-center gap-2">
-              <Quote size={18} /> References
-            </h3>
-            <p>{resumeData.references[0]}</p>
-          </section>
-        </main>
-      </div>
-    </div>
-  );
-};
+      <section className="contact-section" id="contact"><div className="shell"><p className="section-label reveal">07 / Contact</p><div className="contact-grid"><div className="reveal"><h2>Have an interesting infrastructure problem?</h2><a className="contact-email" href={`mailto:${profile.email}`}>Let’s talk <ArrowUpRight size={28} /></a></div><div className="contact-details reveal"><a href={`mailto:${profile.email}`}><Mail size={16} /> {profile.email}</a><p><MapPin size={16} /> {profile.location}</p><a href="https://www.linkedin.com/in/mian-zhu-7547215a/" target="_blank" rel="noopener noreferrer"><FontAwesomeIcon icon={faLinkedin} /> LinkedIn</a><a href="https://www.instagram.com/zhu_mian/" target="_blank" rel="noopener noreferrer"><FontAwesomeIcon icon={faInstagram} /> Instagram</a></div></div><footer><a className="wordmark" href="#top">MZ<span>.</span></a><p>Cloud · Endpoint · Infrastructure</p><p>© {new Date().getFullYear()} Mian Zhu</p></footer></div></section>
+    </main>
+  </div>;
+}
 
 export default App;
