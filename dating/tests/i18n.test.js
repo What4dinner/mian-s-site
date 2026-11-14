@@ -132,10 +132,10 @@ test('known issues: four items, each with a workaround', () => {
 })
 
 test("known issues are funny bug reports of Mian's real habits", () => {
-  expect(T.zh.i1).toBe('买瓶洗发水，也要先做个横向对比。')
-  expect(T.zh.i1w).toBe('好处是，家里的东西都很值。')
-  expect(T.zh.i2).toBe('一个决定能想三天，最后选的还是第一天想好的那个。')
-  expect(T.zh.i2w).toBe('直接问我第一反应，能省三天。')
+  expect(T.zh.i1).toBe('对美食没什么追求，曾经认真想过：要是能只喝营养液就好了。')
+  expect(T.zh.i1w).toBe('好消息：给你做饭的手艺不受影响。')
+  expect(T.zh.i2).toBe('不爱做计划，想去哪就去哪，随心所欲。')
+  expect(T.zh.i2w).toBe('行程你来定，我负责开车。')
   expect(T.zh.i3).toBe('连下一周雨，会自动进入「开车出去转转」模式。')
   expect(T.zh.i3w).toBe('无法关闭，但可以带上你。')
   expect(T.zh.i4).toBe('看到好光线会突然停下，原地拍十分钟。')
