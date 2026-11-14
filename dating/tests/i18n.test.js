@@ -131,13 +131,13 @@ test('known issues: four items, each with a workaround', () => {
   expect(T.zh.workaround).toBe('临时解决方法：')
 })
 
-test("known issues come from Mian's real habits (via an old friend), light enough for a first impression", () => {
-  expect(T.zh.i1).toBe('什么事都想优化一下，买个东西能比较半天。')
-  expect(T.zh.i1w).toBe('你说买哪个，就买哪个。')
-  expect(T.zh.i2).toBe('遇到事情容易想太多，一个决定琢磨很久。')
-  expect(T.zh.i2w).toBe('你帮我拍板，我马上执行。')
-  expect(T.zh.i3).toBe('阴雨天待久了会闷，经常突然想开车出去转转。')
-  expect(T.zh.i3w).toBe('副驾驶给你留着。')
-  expect(T.zh.i4).toBe('拍照时总想着怎么拍更好，有时忘了好好享受当下。')
-  expect(T.zh.i4w).toBe('提醒我放下相机。')
+test("known issues are funny bug reports of Mian's real habits", () => {
+  expect(T.zh.i1).toBe('买瓶洗发水，也要先做个横向对比。')
+  expect(T.zh.i1w).toBe('好处是，家里的东西都很值。')
+  expect(T.zh.i2).toBe('一个决定能想三天，最后选的还是第一天想好的那个。')
+  expect(T.zh.i2w).toBe('直接问我第一反应，能省三天。')
+  expect(T.zh.i3).toBe('连下一周雨，会自动进入「开车出去转转」模式。')
+  expect(T.zh.i3w).toBe('无法关闭，但可以带上你。')
+  expect(T.zh.i4).toBe('看到好光线会突然停下，原地拍十分钟。')
+  expect(T.zh.i4w).toBe('这十分钟里，你会收获很多好看的照片。')
 })
