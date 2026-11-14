@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mian</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Noto+Sans+SC:wght@400;500;600;700&family=Noto+Serif+SC:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@chinese-fonts/lxgwwenkai@3.0.0/dist/LXGWWenKai-Medium/result.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<style>
+:root{
+  --ink:#1D1D1F; --ink-2:#6E6E73; --line:#E3E3E8; --paper:#FFFFFF; --mist:#F5F5F7;
+  --blue:#1F6FEB; --blue-ink:#0B4FC4; --sun:#FFC93C; --go:#1E8E4E;
+  --sans:"Geist",-apple-system,"SF Pro Text","PingFang SC","Noto Sans SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  --serif:"Instrument Serif","Noto Serif SC","Songti SC",serif;
+  --spring:cubic-bezier(.34,1.56,.64,1);
+  --ease:cubic-bezier(.22,.8,.2,1);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+html[lang="zh"] body{letter-spacing:.01em}
+em{font-family:var(--serif);font-style:italic;font-weight:400;letter-spacing:0}
+/* Chinese: one typeface, emphasis by tone (Apple two-tone headline), not by switching fonts */
+html[lang="zh"] em{font-family:inherit;font-style:normal;font-weight:inherit;color:var(--ink-2)}
+html[lang="zh"] .mark em{color:inherit}
+html[lang="zh"] p,html[lang="zh"] dd small{line-height:1.7}
+html[lang="zh"] .tile p{font-size:13.5px}
+html[lang="zh"] .feature-tile .quote{font-family:"Noto Serif SC","Songti SC",serif;font-weight:500;font-size:22px}
+html[lang="zh"] .tagline{letter-spacing:.02em}
+a{color:inherit;text-decoration:none}
+.container{max-width:1120px;margin:0 auto;padding:0 20px}
+@media(min-width:834px){.container{padding:0 40px}}
+
+/* ---------- nav ---------- */
+.nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.78);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid rgba(0,0,0,.06)}
+.nav .container{height:52px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand{font-weight:600;font-size:17px;letter-spacing:-.01em}
+.links{display:none;gap:28px;font-size:13px;color:var(--ink-2)}
+.links a{transition:color .2s}.links a:hover{color:var(--ink)}
+@media(min-width:834px){.links{display:flex}}
+.nav-r{display:flex;align-items:center;gap:12px}
+.lang{display:flex;font-size:12px;border:1px solid var(--line);border-radius:999px;padding:2px}
+.lang button{all:unset;cursor:pointer;padding:4px 10px;border-radius:999px;color:var(--ink-2);transition:all .3s var(--spring)}
+.lang button.on{background:var(--ink);color:#fff}
+.cart{all:unset;cursor:pointer;position:relative;width:34px;height:34px;display:grid;place-items:center;font-size:14px;border-radius:50%;transition:background .2s}
+.cart:hover{background:var(--mist)}
+.cart .badge{position:absolute;top:2px;right:0;min-width:16px;height:16px;border-radius:8px;background:var(--sun);color:var(--ink);font-size:10px;font-weight:700;display:grid;place-items:center;transform:scale(0);transition:transform .45s var(--spring)}
+.cart.has .badge{transform:scale(1)}
+.cart.bump{animation:jelly .55s}
+
+/* ---------- shared ---------- */
+section{padding:88px 0}
+@media(min-width:834px){section{padding:128px 0}}
+.eyebrow{font-size:13px;font-weight:600;color:var(--blue);margin-bottom:12px;letter-spacing:.01em}
+h2{font-size:40px;line-height:1.05;letter-spacing:-.035em;font-weight:600;margin:0}
+@media(min-width:834px){h2{font-size:64px}}
+html[lang="zh"] h2{letter-spacing:-.01em;line-height:1.15}
+.lede{font-size:17px;line-height:1.5;color:var(--ink-2);margin:16px 0 0;max-width:520px}
+@media(min-width:834px){.lede{font-size:21px}}
+
+.btns{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.btn{all:unset;cursor:pointer;display:inline-flex;align-items:center;gap:8px;padding:13px 22px;border-radius:999px;font-size:15px;font-weight:500;transition:transform .2s,background .2s}
+.btn-primary{background:var(--blue);color:#fff}
+.btn-primary:hover{background:var(--blue-ink)}
+.btn-ghost{color:var(--blue);padding:13px 6px}
+.btn-ghost:hover{text-decoration:underline;text-underline-offset:4px}
+.btn:active{animation:jelly .5s}
+@keyframes jelly{30%{transform:scale(1.12,.88)}50%{transform:scale(.94,1.06)}70%{transform:scale(1.03,.97)}100%{transform:none}}
+
+.status{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:500;color:var(--go)}
+.pulse{width:8px;height:8px;border-radius:50%;background:#26B35F;position:relative}
+.pulse::after{content:"";position:absolute;inset:0;border-radius:50%;background:#26B35F;animation:ping 1.8s ease-out infinite}
+@keyframes ping{to{transform:scale(3);opacity:0}}
+
+.ph{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:#8A8A90;font-size:12px;font-weight:500;user-select:none}
+.ph i{font-size:20px;opacity:.7}
+
+/* reveal */
+.reveal{opacity:0;transform:translateY(28px) scale(.98);transition:opacity .7s var(--ease),transform .9s var(--spring)}
+.reveal.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}*{animation:none!important}}
+
+/* ---------- hero ---------- */
+.hero{padding:56px 0 88px;background:linear-gradient(180deg,#EEF4FC 0%,#FFFFFF 70%);overflow:hidden}
+.hero-grid{display:grid;gap:48px;align-items:center;text-align:center}
+@media(min-width:834px){.hero{padding:96px 0 128px}.hero-grid{grid-template-columns:1.1fr .9fr;text-align:left;gap:40px}}
+.new{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;letter-spacing:.02em}
+.new::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--sun);box-shadow:0 0 0 3px rgba(255,201,60,.25)}
+.name{font-size:76px;line-height:.95;letter-spacing:-.05em;font-weight:600;margin:18px 0 0}
+@media(min-width:834px){.name{font-size:132px}}
+html[lang="zh"] .name{letter-spacing:.02em;font-weight:600}
+.tagline{font-size:24px;line-height:1.25;letter-spacing:-.02em;font-weight:500;margin:18px 0 0}
+@media(min-width:834px){.tagline{font-size:34px}}
+.mark{background:linear-gradient(transparent 62%,rgba(255,201,60,.55) 62%,rgba(255,201,60,.55) 90%,transparent 90%);padding:0 .08em}
+.hero .status{margin-top:26px}
+.hero .btns{margin-top:22px;justify-content:center}
+@media(min-width:834px){.hero .btns{justify-content:flex-start}}
+
+.deck-wrap{display:flex;flex-direction:column;align-items:center}
+.deck{position:relative;width:min(72vw,300px);aspect-ratio:4/5;cursor:pointer;-webkit-tap-highlight-color:transparent}
+@media(min-width:834px){.deck{width:360px}}
+.dcard{position:absolute;inset:0;border-radius:28px;background:#E8E8ED;border:6px solid #fff;box-shadow:0 1px 2px rgba(0,0,0,.06),0 18px 40px -12px rgba(29,29,31,.22);transition:transform .7s var(--spring),opacity .4s}
+.dcard .ph{height:100%}
+.hint{margin-top:22px;font-size:12px;color:var(--ink-2);display:flex;gap:6px;align-items:center}
+
+/* ---------- core ---------- */
+.core-head{max-width:720px}
+.core-list{list-style:none;margin:56px 0 0;padding:0;display:grid;border-top:1px solid var(--line)}
+@media(min-width:834px){.core-list{grid-template-columns:1fr 1fr;column-gap:64px;border-top:0}}
+.core-item{display:grid;grid-template-columns:56px 1fr;gap:4px 12px;padding:28px 0;border-bottom:1px solid var(--line)}
+@media(min-width:834px){.core-item{padding:40px 0;border-top:1px solid var(--line);border-bottom:0}}
+.core-num{font-family:var(--serif);font-size:34px;line-height:1;color:var(--ink-2)}
+.core-item h3{margin:0;font-size:21px;font-weight:600;letter-spacing:-.02em;line-height:1.25;display:flex;align-items:center;gap:10px}
+@media(min-width:834px){.core-item h3{font-size:26px}}
+.core-item h3 i{font-size:15px;color:var(--blue)}
+.core-item p{grid-column:2;margin:6px 0 0;font-size:16px;line-height:1.5;color:var(--ink-2)}
+
+/* ---------- bonus ---------- */
+.bonus{background:var(--mist)}
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:48px}
+@media(min-width:834px){.tiles{grid-template-columns:repeat(4,1fr);gap:16px}}
+.tile{background:#fff;border-radius:22px;padding:22px 18px 20px;transition:transform .4s var(--spring)}
+.tile:hover{transform:translateY(-4px)}
+.tile:active{transform:scale(.97)}
+.tile .ic{width:48px;height:48px;border-radius:12px;overflow:hidden;box-shadow:0 0 0 1px rgba(0,0,0,.06),0 4px 10px -4px rgba(0,0,0,.15);transition:transform .5s var(--spring)}
+.tile:hover .ic{transform:rotate(-6deg) scale(1.06)}
+.tile .ic svg{display:block;width:100%;height:100%}
+.tile h3{margin:18px 0 0;font-size:16px;font-weight:600;letter-spacing:-.01em;line-height:1.25}
+.tile p{margin:4px 0 0;font-size:13px;color:var(--ink-2);line-height:1.4}
+.feature-tile{grid-column:1/-1;background:var(--ink);color:#fff;display:flex;flex-direction:column;gap:18px;padding:28px 24px}
+@media(min-width:834px){.feature-tile{flex-direction:row;align-items:center;justify-content:space-between;padding:36px 40px}}
+.feature-tile .ft-l{display:flex;gap:18px;align-items:center}
+.feature-tile .ic{width:56px;height:56px;flex:0 0 56px;box-shadow:none}
+.feature-tile h3{margin:0;font-size:22px}
+@media(min-width:834px){.feature-tile h3{font-size:28px}}
+.feature-tile p{color:rgba(255,255,255,.6);font-size:15px}
+.feature-tile .quote{font-family:var(--serif);font-style:italic;font-size:24px;color:rgba(255,255,255,.9);line-height:1.2}
+html[lang="zh"] .feature-tile .quote{font-style:normal}
+
+/* ---------- features ---------- */
+.feat-grid{display:grid;gap:48px;margin-top:56px}
+@media(min-width:834px){.feat-grid{grid-template-columns:1fr 1fr;gap:64px 40px}}
+.show{position:relative}
+.track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;border-radius:24px}
+.track::-webkit-scrollbar{display:none}
+.slide{flex:0 0 100%;scroll-snap-align:start;aspect-ratio:4/3;background:#EDEDF0;position:relative;cursor:pointer;overflow:hidden}
+.slide:nth-child(even){background:#E6E9EE}
+.slide .ph{height:100%}
+.arrow{all:unset;position:absolute;top:50%;width:36px;height:36px;margin-top:-18px;border-radius:50%;background:rgba(255,255,255,.9);display:none;place-items:center;font-size:12px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.12);opacity:0;transition:opacity .2s,transform .3s var(--spring)}
+.arrow:hover{transform:scale(1.1)}
+.arrow.prev{left:12px}.arrow.next{right:12px}
+@media(hover:hover){.arrow{display:grid}.show:hover .arrow{opacity:1}}
+.dots{display:flex;gap:6px;justify-content:center;margin-top:14px}
+.dots button{all:unset;cursor:pointer;width:6px;height:6px;border-radius:3px;background:#C7C7CC;transition:all .45s var(--spring)}
+.dots button.on{width:20px;background:var(--ink)}
+.feat h3{margin:20px 0 0;font-size:24px;font-weight:600;letter-spacing:-.02em;display:flex;align-items:center;gap:10px}
+.feat h3 i{font-size:16px;color:var(--ink-2)}
+.feat p{margin:6px 0 0;font-size:16px;line-height:1.5;color:var(--ink-2);max-width:440px}
+
+/* ---------- specs ---------- */
+.specs{background:var(--mist)}
+.specs-grid{display:grid;gap:40px}
+@media(min-width:834px){.specs-grid{grid-template-columns:1fr 2fr;gap:64px}}
+.spec-rows{border-top:1px solid #D2D2D7}
+.spec{display:grid;grid-template-columns:120px 1fr;gap:16px;padding:20px 0;border-bottom:1px solid #D2D2D7}
+@media(min-width:834px){.spec{grid-template-columns:200px 1fr;padding:24px 0}}
+.spec dt{font-size:14px;color:var(--ink-2);display:flex;gap:10px;align-items:baseline}
+.spec dt i{width:14px;text-align:center;font-size:13px}
+.spec dd{margin:0;font-size:17px;font-weight:500;letter-spacing:-.01em}
+@media(min-width:834px){.spec dd{font-size:20px}}
+.spec dd small{display:block;font-size:14px;font-weight:400;color:var(--ink-2);margin-top:4px}
+
+/* ---------- cta ---------- */
+.cta{text-align:center}
+.cta h2{font-size:52px}
+@media(min-width:834px){.cta h2{font-size:96px}}
+.cta .status{margin-top:28px}
+.cta .btns{justify-content:center;margin-top:24px}
+.ship{margin-top:20px;font-size:13px;color:var(--ink-2)}
+
+footer{border-top:1px solid var(--line);padding:28px 0 40px;font-size:12px;color:var(--ink-2)}
+footer .container{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+
+/* toast + hearts */
+.toast{position:fixed;left:50%;bottom:24px;z-index:60;transform:translate(-50%,30px);opacity:0;background:var(--ink);color:#fff;font-size:14px;padding:12px 18px;border-radius:14px;display:flex;gap:10px;align-items:center;transition:all .45s var(--spring);pointer-events:none;white-space:nowrap}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.heart{position:absolute;font-size:20px;pointer-events:none;animation:float 1.3s ease-out forwards;z-index:5}
+@keyframes float{0%{opacity:1;transform:translate(0,0) scale(.5)}100%{opacity:0;transform:translate(var(--dx),-150px) scale(1.25)}}
+
+/* ===== v8 type system: Fraunces (EN display) + LXGW WenKai (ZH display) ===== */
+:root{--display:"Fraunces","LXGW WenKai Medium","Noto Serif SC",serif}
+.name,.tagline,h2,.core-num,.feature-tile .quote{font-family:var(--display);font-variation-settings:"opsz" 144}
+.name{font-weight:600;letter-spacing:-.045em}
+.tagline{font-weight:400;font-style:italic;letter-spacing:-.015em}
+h2{font-weight:500;letter-spacing:-.03em}
+.core-num{font-style:italic;font-weight:300}
+em{font-family:inherit;font-style:inherit;font-weight:inherit;color:var(--ink-2)}
+.mark em{color:inherit}
+.feature-tile .quote{font-style:italic;font-weight:400}
+html[lang="zh"] .name,html[lang="zh"] .tagline,html[lang="zh"] h2,html[lang="zh"] .feature-tile .quote,
+html[lang="zh"] .core-item h3,html[lang="zh"] .core-item p,html[lang="zh"] .feat h3,html[lang="zh"] .feat p,
+html[lang="zh"] .feature-tile h3,html[lang="zh"] .lede{font-family:"LXGW WenKai Medium","Noto Sans SC",serif;font-style:normal;font-weight:400}
+h2,.tagline{text-wrap:balance}
+html[lang="zh"] h2 em,html[lang="zh"] .tagline .mark{white-space:nowrap}
+html[lang="zh"] .name{letter-spacing:.02em}
+html[lang="zh"] .tagline{letter-spacing:.03em}
+html[lang="zh"] h2{letter-spacing:.01em;line-height:1.2}
+html[lang="zh"] .core-item h3{font-size:22px}
+@media(min-width:834px){html[lang="zh"] .core-item h3{font-size:27px}}
+html[lang="zh"] .core-item p,html[lang="zh"] .feat p{font-size:16.5px}
+
+.with-ic{display:flex;align-items:center;gap:16px}
+.hui{width:84px;height:61px;flex:0 0 auto;transition:transform .5s var(--spring)}
+.with-ic:hover .hui{transform:rotate(-4deg) scale(1.06)}
+.hui.sm{width:46px;height:34px}
+.foot-l{display:inline-flex;align-items:center;gap:10px}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="container">
+    <a class="brand" href="#top" data-i="brand"></a>
+    <nav class="links">
+      <a href="#box" data-i="navBox"></a><a href="#features" data-i="navFeat"></a><a href="#specs" data-i="navSpecs"></a>
+    </nav>
+    <div class="nav-r">
+      <div class="lang"><button data-l="en">EN</button><button data-l="zh">中文</button></div>
+      <button class="cart" id="cart" aria-label="Cart"><i class="fa-solid fa-bag-shopping"></i><span class="badge">1</span></button>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="reveal">
+        <div class="new" data-i="new"></div>
+        <h1 class="name" data-i="name"></h1>
+        <p class="tagline" data-h="tagline"></p>
+        <div class="status"><span class="pulse"></span><span data-i="status"></span></div>
+        <div class="btns">
+          <button class="btn btn-primary" data-act="cart"><i class="fa-solid fa-bag-shopping"></i><span data-i="cartBtn"></span></button>
+          <button class="btn btn-ghost" data-act="mail"><span data-i="contact"></span> <i class="fa-solid fa-chevron-right" style="font-size:11px"></i></button>
+        </div>
+      </div>
+      <div class="deck-wrap reveal">
+        <div class="deck" id="deck" role="button" aria-label="Next photo"></div>
+        <div class="hint"><i class="fa-regular fa-hand-pointer"></i><span data-i="tap"></span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT'S IN THE BOX -->
+  <section id="box">
+    <div class="container">
+      <div class="core-head reveal">
+        <div class="eyebrow" data-i="coreEyebrow"></div>
+        <h2 data-h="coreTitle"></h2>
+      </div>
+      <ul class="core-list">
+        <li class="core-item reveal"><span class="core-num">01</span><h3><span data-i="c1"></span></h3><p data-i="c1s"></p></li>
+        <li class="core-item reveal"><span class="core-num">02</span><h3><span data-i="c2"></span></h3><p data-i="c2s"></p></li>
+        <li class="core-item reveal"><span class="core-num">03</span><h3><span data-i="c3"></span></h3><p data-i="c3s"></p></li>
+        <li class="core-item reveal"><span class="core-num">04</span><h3><span data-i="c4"></span></h3><p data-i="c4s"></p></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- BONUS -->
+  <section class="bonus">
+    <div class="container">
+      <div class="reveal">
+        <div class="eyebrow" data-i="boxEyebrow"></div>
+        <h2 data-h="boxTitle"></h2>
+        <p class="lede" data-i="boxSub"></p>
+      </div>
+      <div class="tiles">
+        <div class="tile reveal"><div class="ic"><svg viewBox="0 0 64 64"><defs><linearGradient id="icl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFFFFF"/><stop offset="1" stop-color="#ECF1F8"/></linearGradient><linearGradient id="icc" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5AC8FA"/><stop offset="1" stop-color="#1A7CF5"/></linearGradient></defs><rect width="64" height="64" fill="url(#icl)"/><path d="M19 43h27a9 9 0 0 0 1-17.9A12 12 0 0 0 24.4 22 9.5 9.5 0 0 0 19 43z" fill="url(#icc)"/></svg></div><h3 data-i="p1"></h3><p data-i="p1s"></p></div>
+        <div class="tile reveal"><div class="ic"><svg viewBox="0 0 64 64"><rect width="64" height="64" fill="#fff"/><rect x="9" y="17" width="46" height="30" rx="9" fill="#FF0033"/><path d="M28 25.5v13l11.5-6.5z" fill="#fff"/></svg></div><h3 data-i="p2"></h3><p data-i="p2s"></p></div>
+        <div class="tile reveal"><div class="ic"><svg viewBox="0 0 64 64"><rect width="64" height="64" fill="#fff"/><text x="32" y="33" text-anchor="middle" font-family="Arial Black,Arial,sans-serif" font-weight="900" font-style="italic" font-size="12.5" fill="#E31837" letter-spacing="-.3">COSTCO</text><rect x="9" y="37" width="46" height="4" rx="1" fill="#005DAA"/><text x="32" y="48" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="5.5" fill="#005DAA" letter-spacing="1.2">WHOLESALE</text></svg></div><h3 data-i="p3"></h3><p data-i="p3s"></p></div>
+        <div class="tile reveal"><div class="ic"><svg viewBox="0 0 64 64"><rect width="64" height="64" fill="#1D1D1F"/><path d="M17 36v-5a15 15 0 0 1 30 0v5" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round"/><rect x="13" y="33" width="9" height="13" rx="4" fill="#fff"/><rect x="42" y="33" width="9" height="13" rx="4" fill="#fff"/><path d="M46 46c0 5-5 7-11 7" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"/><circle cx="33" cy="53" r="3" fill="#FFC93C"/></svg></div><h3 data-i="p4"></h3><p data-i="p4s"></p></div>
+        <div class="tile feature-tile reveal">
+          <div class="ft-l">
+            <div class="ic"><svg viewBox="0 0 64 64"><rect width="64" height="64" fill="#FFC93C"/><path d="M24 20l3-5h10l3 5h8a5 5 0 0 1 5 5v18a5 5 0 0 1-5 5H16a5 5 0 0 1-5-5V25a5 5 0 0 1 5-5z" fill="#1D1D1F"/><circle cx="32" cy="34" r="10" fill="#1D1D1F" stroke="#fff" stroke-width="3"/><circle cx="29" cy="31" r="2.5" fill="#fff" opacity=".85"/></svg></div>
+            <div><h3 data-i="p5"></h3><p data-i="p5s"></p></div>
+          </div>
+          <div class="quote" data-i="p5q"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section id="features">
+    <div class="container">
+      <div class="reveal">
+        <div class="eyebrow" data-i="featEyebrow"></div>
+        <h2 data-h="featTitle"></h2>
+      </div>
+      <div class="feat-grid">
+        <div class="feat reveal"><div class="show" data-n="4"></div><h3><i class="fa-solid fa-camera"></i><span data-i="h1"></span></h3><p data-i="h1s"></p></div>
+        <div class="feat reveal"><div class="show" data-n="3"></div><h3><i class="fa-solid fa-car-side"></i><span data-i="h2"></span></h3><p data-i="h2s"></p></div>
+        <div class="feat reveal"><div class="show" data-n="3"></div><h3><i class="fa-solid fa-person-hiking"></i><span data-i="h3"></span></h3><p data-i="h3s"></p></div>
+        <div class="feat reveal"><div class="show" data-n="3"></div><h3><i class="fa-solid fa-campground"></i><span data-i="h4"></span></h3><p data-i="h4s"></p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SPECS -->
+  <section class="specs" id="specs">
+    <div class="container specs-grid">
+      <div class="reveal">
+        <div class="eyebrow" data-i="specEyebrow"></div>
+        <h2><span data-i="name"></span></h2>
+        <p class="lede" data-i="specSub"></p>
+      </div>
+      <dl class="spec-rows reveal" style="margin:0">
+        <div class="spec"><dt><i class="fa-solid fa-ruler-vertical"></i><span data-i="s1"></span></dt><dd>178 cm</dd></div>
+        <div class="spec"><dt><i class="fa-solid fa-weight-scale"></i><span data-i="s2"></span></dt><dd>70 kg</dd></div>
+        <div class="spec"><dt><i class="fa-solid fa-location-dot"></i><span data-i="s3"></span></dt><dd class="with-ic"><svg class="hui" viewBox="0 0 80 58" aria-hidden="true"><path d="M12 47V34H68V47Z" fill="#fff" stroke="#1D1D1F" stroke-width="1.3" stroke-linejoin="round"/><path d="M19 47V30.5H27V47Z" fill="#fff" stroke="#1D1D1F" stroke-width="1.3" stroke-linejoin="round"/><path d="M19.5 30.5Q19.5 27.5 21.2 27.5Q22.9 27.5 22.9 30.5Z" fill="#7FA899" stroke="#1D1D1F" stroke-width="1.1" stroke-linejoin="round"/><path d="M21.2 27.5V25.7" stroke="#1D1D1F" stroke-width="1" stroke-linecap="round"/><path d="M23.1 30.5Q23.1 27.5 24.8 27.5Q26.5 27.5 26.5 30.5Z" fill="#7FA899" stroke="#1D1D1F" stroke-width="1.1" stroke-linejoin="round"/><path d="M24.8 27.5V25.7" stroke="#1D1D1F" stroke-width="1" stroke-linecap="round"/><rect x="20.4" y="36" width="1.8" height="3.2" rx="0.9" fill="#1D1D1F"/><rect x="23.8" y="36" width="1.8" height="3.2" rx="0.9" fill="#1D1D1F"/><path d="M53 47V30.5H61V47Z" fill="#fff" stroke="#1D1D1F" stroke-width="1.3" stroke-linejoin="round"/><path d="M53.5 30.5Q53.5 27.5 55.2 27.5Q56.900000000000006 27.5 56.900000000000006 30.5Z" fill="#7FA899" stroke="#1D1D1F" stroke-width="1.1" stroke-linejoin="round"/><path d="M55.2 27.5V25.7" stroke="#1D1D1F" stroke-width="1" stroke-linecap="round"/><path d="M57.099999999999994 30.5Q57.099999999999994 27.5 58.8 27.5Q60.5 27.5 60.5 30.5Z" fill="#7FA899" stroke="#1D1D1F" stroke-width="1.1" stroke-linejoin="round"/><path d="M58.8 27.5V25.7" stroke="#1D1D1F" stroke-width="1" stroke-linecap="round"/><rect x="54.4" y="36" width="1.8" height="3.2" rx="0.9" fill="#1D1D1F"/><rect x="57.8" y="36" width="1.8" height="3.2" rx="0.9" fill="#1D1D1F"/><path d="M3 47V31H13V47Z" fill="#fff" stroke="#1D1D1F" stroke-width="1.3" stroke-linejoin="round"/><path d="M3.5999999999999996 31Q3.5999999999999996 27.4 5.6 27.4Q7.6 27.4 7.6 31Z" fill="#7FA899" stroke="#1D1D1F" stroke-width="1.1" stroke-linejoin="round"/><path d="M5.6 27.4V25.599999999999998" stroke="#1D1D1F" stroke-width="1" stroke-linecap="round"/><path d="M8.4 31Q8.4 27.4 10.4 27.4Q12.4 27.4 12.4 31Z" fill="#7FA899" stroke="#1D1D1F" stroke-width="1.1" stroke-linejoin="round"/><path d="M10.4 27.4V25.599999999999998" stroke="#1D1D1F" stroke-width="1" stroke-linecap="round"/><rect x="4.8" y="36.5" width="1.8" height="3.2" rx="0.9" fill="#1D1D1F"/><rect x="9.4" y="36.5" width="1.8" height="3.2" rx="0.9" fill="#1D1D1F"/><path d="M67 47V31H77V47Z" fill="#fff" stroke="#1D1D1F" stroke-width="1.3" stroke-linejoin="round"/><path d="M67.6 31Q67.6 27.4 69.6 27.4Q71.6 27.4 71.6 31Z" fill="#7FA899" stroke="#1D1D1F" stroke-width="1.1" stroke-linejoin="round"/><path d="M69.6 27.4V25.599999999999998" stroke="#1D1D1F" stroke-width="1" stroke-linecap="round"/><path d="M72.4 31Q72.4 27.4 74.4 27.4Q76.4 27.4 76.4 31Z" fill="#7FA899" stroke="#1D1D1F" stroke-width="1.1" stroke-linejoin="round"/><path d="M74.4 27.4V25.599999999999998" stroke="#1D1D1F" stroke-width="1" stroke-linecap="round"/><rect x="68.8" y="36.5" width="1.8" height="3.2" rx="0.9" fill="#1D1D1F"/><rect x="73.4" y="36.5" width="1.8" height="3.2" rx="0.9" fill="#1D1D1F"/><rect x="15.1" y="38" width="1.8" height="3.2" rx="0.9" fill="#1D1D1F"/><rect x="28.1" y="38" width="1.8" height="3.2" rx="0.9" fill="#1D1D1F"/><rect x="50.1" y="38" width="1.8" height="3.2" rx="0.9" fill="#1D1D1F"/><rect x="63.1" y="38" width="1.8" height="3.2" rx="0.9" fill="#1D1D1F"/><path d="M31 47V23H49V47Z" fill="#fff" stroke="#1D1D1F" stroke-width="1.3" stroke-linejoin="round"/><path d="M31 23V18.5H34V23" fill="#fff" stroke="#1D1D1F" stroke-width="1.3" stroke-linejoin="round"/><path d="M30.7 18.5Q30.7 15.1 32.5 15.1Q34.3 15.1 34.3 18.5Z" fill="#7FA899" stroke="#1D1D1F" stroke-width="1" stroke-linejoin="round"/><path d="M32.5 15.1V13.299999999999999" stroke="#1D1D1F" stroke-width="1" stroke-linecap="round"/><path d="M46 23V18.5H49V23" fill="#fff" stroke="#1D1D1F" stroke-width="1.3" stroke-linejoin="round"/><path d="M45.7 18.5Q45.7 15.1 47.5 15.1Q49.3 15.1 49.3 18.5Z" fill="#7FA899" stroke="#1D1D1F" stroke-width="1" stroke-linejoin="round"/><path d="M47.5 15.1V13.299999999999999" stroke="#1D1D1F" stroke-width="1" stroke-linecap="round"/><path d="M36.5 23V16.5H43.5V23" fill="#fff" stroke="#1D1D1F" stroke-width="1.3" stroke-linejoin="round"/><rect x="38" y="18.3" width="1.4" height="2.8" rx="0.7" fill="#1D1D1F"/><rect x="40.6" y="18.3" width="1.4" height="2.8" rx="0.7" fill="#1D1D1F"/><path d="M35.6 16.5Q35.6 7.6 40 7.1Q44.4 7.6 44.4 16.5Z" fill="#7FA899" stroke="#1D1D1F" stroke-width="1.3" stroke-linejoin="round"/><path d="M37.9 11.4Q40 9.9 42.1 11.4" fill="none" stroke="#fff" stroke-width=".8" opacity=".7"/><rect x="39" y="4.4" width="2" height="2.8" fill="#1D1D1F"/><path d="M40 4.4V2.6" stroke="#1D1D1F" stroke-width="1"/><circle cx="40" cy="1.9" r="1.2" fill="#D9A21B"/><rect x="33.4" y="26.5" width="1.8" height="3.2" rx="0.9" fill="#1D1D1F"/><rect x="39.1" y="26.5" width="1.8" height="3.2" rx="0.9" fill="#1D1D1F"/><rect x="44.8" y="26.5" width="1.8" height="3.2" rx="0.9" fill="#1D1D1F"/><path d="M37.5 45V39.5a2.5 2.5 0 0 1 5 0V45Z" fill="#1D1D1F"/><path d="M35.5 45H44.5M34.5 46.5H45.5" stroke="#1D1D1F" stroke-width=".9"/><circle cx="14.6" cy="34" r=".75" fill="#F2B630"/><circle cx="16.6" cy="34" r=".75" fill="#F2B630"/><circle cx="28" cy="34" r=".75" fill="#F2B630"/><circle cx="30" cy="34" r=".75" fill="#F2B630"/><circle cx="50" cy="34" r=".75" fill="#F2B630"/><circle cx="52" cy="34" r=".75" fill="#F2B630"/><circle cx="63.4" cy="34" r=".75" fill="#F2B630"/><circle cx="65.4" cy="34" r=".75" fill="#F2B630"/><circle cx="35.6" cy="23" r=".75" fill="#F2B630"/><circle cx="38" cy="23" r=".75" fill="#F2B630"/><circle cx="40.4" cy="23" r=".75" fill="#F2B630"/><circle cx="42.8" cy="23" r=".75" fill="#F2B630"/><circle cx="45.2" cy="23" r=".75" fill="#F2B630"/><path d="M2 48.5H78" stroke="#1D1D1F" stroke-width="1.6" stroke-linecap="round"/><path d="M10 52.5H36M44 52.5H70" stroke="#B9B9BF" stroke-width="1.3" stroke-linecap="round"/><path d="M18 56H30M50 56H62" stroke="#D2D2D7" stroke-width="1.2" stroke-linecap="round"/><rect x="2" y="5" width="16" height="11" rx="1.6" fill="#C8302A"/><text x="10" y="13" text-anchor="middle" font-size="7.4" font-weight="600" font-family="Fraunces,Georgia,serif" fill="#fff">Vic</text></svg><span><span data-i="s3v"></span><small data-i="s3n"></small></span></dd></div>
+        <div class="spec"><dt><i class="fa-solid fa-earth-asia"></i><span data-i="s9"></span></dt><dd class="with-ic"><svg class="hui" viewBox="0 0 80 58" aria-hidden="true"><path d="M31 47V23H39V15H61V23H70V47Z" fill="#fff" stroke="#1D1D1F" stroke-width="1.5" stroke-linejoin="miter"/><rect x="29.4" y="20.2" width="11.2" height="2.8" fill="#1D1D1F"/><path d="M29.4 20.2L27.6 18.4L32.2 20.2Z" fill="#1D1D1F"/><path d="M40.6 20.2L42.4 18.4L37.8 20.2Z" fill="#1D1D1F"/><rect x="31" y="23" width="8" height="1.3" fill="#8E8E93"/><rect x="37.4" y="12.2" width="25.2" height="2.8" fill="#1D1D1F"/><path d="M37.4 12.2L35.6 10.4L40.2 12.2Z" fill="#1D1D1F"/><path d="M62.6 12.2L64.4 10.4L59.8 12.2Z" fill="#1D1D1F"/><rect x="39" y="15" width="22" height="1.3" fill="#8E8E93"/><rect x="59.4" y="20.2" width="12.2" height="2.8" fill="#1D1D1F"/><path d="M59.4 20.2L57.6 18.4L62.2 20.2Z" fill="#1D1D1F"/><path d="M71.6 20.2L73.4 18.4L68.8 20.2Z" fill="#1D1D1F"/><rect x="61" y="23" width="9" height="1.3" fill="#8E8E93"/><rect x="56" y="26" width="3.6" height="3.6" fill="#1D1D1F"/><path d="M7 47V33H15V27H37V33H45V47Z" fill="#fff" stroke="#1D1D1F" stroke-width="1.5" stroke-linejoin="miter"/><rect x="5.4" y="30.2" width="11.2" height="2.8" fill="#1D1D1F"/><path d="M5.4 30.2L3.6 28.4L8.2 30.2Z" fill="#1D1D1F"/><path d="M16.6 30.2L18.4 28.4L13.8 30.2Z" fill="#1D1D1F"/><rect x="7" y="33" width="8" height="1.3" fill="#8E8E93"/><rect x="13.4" y="24.2" width="25.2" height="2.8" fill="#1D1D1F"/><path d="M13.4 24.2L11.6 22.4L16.2 24.2Z" fill="#1D1D1F"/><path d="M38.6 24.2L40.4 22.4L35.8 24.2Z" fill="#1D1D1F"/><rect x="15" y="27" width="22" height="1.3" fill="#8E8E93"/><rect x="35.4" y="30.2" width="11.2" height="2.8" fill="#1D1D1F"/><path d="M35.4 30.2L33.6 28.4L38.2 30.2Z" fill="#1D1D1F"/><path d="M46.6 30.2L48.4 28.4L43.8 30.2Z" fill="#1D1D1F"/><rect x="37" y="33" width="8" height="1.3" fill="#8E8E93"/><path d="M23 47V40.5a3 3 0 0 1 6 0V47Z" fill="#1D1D1F"/><rect x="12" y="37" width="3.2" height="3.2" fill="#1D1D1F"/><path d="M3 48.5H77" stroke="#1D1D1F" stroke-width="1.6" stroke-linecap="round"/><path d="M12 52.5H40M48 52.5H66" stroke="#B9B9BF" stroke-width="1.3" stroke-linecap="round"/><path d="M20 56H34M52 56H60" stroke="#D2D2D7" stroke-width="1.2" stroke-linecap="round"/><rect x="4" y="6" width="12" height="12" rx="1.6" fill="#C8302A"/><text x="10" y="15.3" text-anchor="middle" font-size="9" font-family="LXGW WenKai Medium,Noto Serif SC,serif" fill="#fff">皖</text></svg><span><span data-i="s9v"></span><small data-i="s9n"></small></span></dd></div>
+        <div class="spec"><dt><i class="fa-solid fa-language"></i><span data-i="s4"></span></dt><dd>English · 中文</dd></div>
+        <div class="spec"><dt><i class="fa-solid fa-ban-smoking"></i><span data-i="s5"></span></dt><dd><span data-i="s5v"></span><small data-i="s5n"></small></dd></div>
+        <div class="spec"><dt><i class="fa-solid fa-wine-glass"></i><span data-i="s6"></span></dt><dd><span data-i="s6v"></span><small data-i="s6n"></small></dd></div>
+        <div class="spec"><dt><i class="fa-solid fa-battery-full"></i><span data-i="s7"></span></dt><dd data-i="s7v"></dd></div>
+        <div class="spec"><dt><i class="fa-solid fa-shield-heart"></i><span data-i="s8"></span></dt><dd data-i="s8v"></dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta">
+    <div class="container reveal">
+      <h2 data-h="ctaTitle"></h2>
+      <div class="status"><span class="pulse"></span><span data-i="left"></span></div>
+      <div class="btns">
+        <button class="btn btn-primary" data-act="cart"><i class="fa-solid fa-bag-shopping"></i><span data-i="cartBtn"></span></button>
+        <button class="btn btn-ghost" data-act="mail"><span data-i="contact"></span> <i class="fa-solid fa-chevron-right" style="font-size:11px"></i></button>
+      </div>
+      <div class="ship" data-i="ship"></div>
+    </div>
+  </section>
+</main>
+
+<footer><div class="container"><span class="foot-l"><svg class="hui sm" viewBox="0 0 80 58" aria-hidden="true"><path d="M31 47V23H39V15H61V23H70V47Z" fill="#fff" stroke="#1D1D1F" stroke-width="1.5" stroke-linejoin="miter"/><rect x="29.4" y="20.2" width="11.2" height="2.8" fill="#1D1D1F"/><path d="M29.4 20.2L27.6 18.4L32.2 20.2Z" fill="#1D1D1F"/><path d="M40.6 20.2L42.4 18.4L37.8 20.2Z" fill="#1D1D1F"/><rect x="31" y="23" width="8" height="1.3" fill="#8E8E93"/><rect x="37.4" y="12.2" width="25.2" height="2.8" fill="#1D1D1F"/><path d="M37.4 12.2L35.6 10.4L40.2 12.2Z" fill="#1D1D1F"/><path d="M62.6 12.2L64.4 10.4L59.8 12.2Z" fill="#1D1D1F"/><rect x="39" y="15" width="22" height="1.3" fill="#8E8E93"/><rect x="59.4" y="20.2" width="12.2" height="2.8" fill="#1D1D1F"/><path d="M59.4 20.2L57.6 18.4L62.2 20.2Z" fill="#1D1D1F"/><path d="M71.6 20.2L73.4 18.4L68.8 20.2Z" fill="#1D1D1F"/><rect x="61" y="23" width="9" height="1.3" fill="#8E8E93"/><rect x="56" y="26" width="3.6" height="3.6" fill="#1D1D1F"/><path d="M7 47V33H15V27H37V33H45V47Z" fill="#fff" stroke="#1D1D1F" stroke-width="1.5" stroke-linejoin="miter"/><rect x="5.4" y="30.2" width="11.2" height="2.8" fill="#1D1D1F"/><path d="M5.4 30.2L3.6 28.4L8.2 30.2Z" fill="#1D1D1F"/><path d="M16.6 30.2L18.4 28.4L13.8 30.2Z" fill="#1D1D1F"/><rect x="7" y="33" width="8" height="1.3" fill="#8E8E93"/><rect x="13.4" y="24.2" width="25.2" height="2.8" fill="#1D1D1F"/><path d="M13.4 24.2L11.6 22.4L16.2 24.2Z" fill="#1D1D1F"/><path d="M38.6 24.2L40.4 22.4L35.8 24.2Z" fill="#1D1D1F"/><rect x="15" y="27" width="22" height="1.3" fill="#8E8E93"/><rect x="35.4" y="30.2" width="11.2" height="2.8" fill="#1D1D1F"/><path d="M35.4 30.2L33.6 28.4L38.2 30.2Z" fill="#1D1D1F"/><path d="M46.6 30.2L48.4 28.4L43.8 30.2Z" fill="#1D1D1F"/><rect x="37" y="33" width="8" height="1.3" fill="#8E8E93"/><path d="M23 47V40.5a3 3 0 0 1 6 0V47Z" fill="#1D1D1F"/><rect x="12" y="37" width="3.2" height="3.2" fill="#1D1D1F"/><path d="M3 48.5H77" stroke="#1D1D1F" stroke-width="1.6" stroke-linecap="round"/><path d="M12 52.5H40M48 52.5H66" stroke="#B9B9BF" stroke-width="1.3" stroke-linecap="round"/><path d="M20 56H34M52 56H60" stroke="#D2D2D7" stroke-width="1.2" stroke-linecap="round"/><rect x="4" y="6" width="12" height="12" rx="1.6" fill="#C8302A"/><text x="10" y="15.3" text-anchor="middle" font-size="9" font-family="LXGW WenKai Medium,Noto Serif SC,serif" fill="#fff">皖</text></svg><span data-i="foot"></span><svg class="hui sm" viewBox="0 0 80 58" aria-hidden="true"><path d="M12 47V34H68V47Z" fill="#fff" stroke="#1D1D1F" stroke-width="1.3" stroke-linejoin="round"/><path d="M19 47V30.5H27V47Z" fill="#fff" stroke="#1D1D1F" stroke-width="1.3" stroke-linejoin="round"/><path d="M19.5 30.5Q19.5 27.5 21.2 27.5Q22.9 27.5 22.9 30.5Z" fill="#7FA899" stroke="#1D1D1F" stroke-width="1.1" stroke-linejoin="round"/><path d="M21.2 27.5V25.7" stroke="#1D1D1F" stroke-width="1" stroke-linecap="round"/><path d="M23.1 30.5Q23.1 27.5 24.8 27.5Q26.5 27.5 26.5 30.5Z" fill="#7FA899" stroke="#1D1D1F" stroke-width="1.1" stroke-linejoin="round"/><path d="M24.8 27.5V25.7" stroke="#1D1D1F" stroke-width="1" stroke-linecap="round"/><rect x="20.4" y="36" width="1.8" height="3.2" rx="0.9" fill="#1D1D1F"/><rect x="23.8" y="36" width="1.8" height="3.2" rx="0.9" fill="#1D1D1F"/><path d="M53 47V30.5H61V47Z" fill="#fff" stroke="#1D1D1F" stroke-width="1.3" stroke-linejoin="round"/><path d="M53.5 30.5Q53.5 27.5 55.2 27.5Q56.900000000000006 27.5 56.900000000000006 30.5Z" fill="#7FA899" stroke="#1D1D1F" stroke-width="1.1" stroke-linejoin="round"/><path d="M55.2 27.5V25.7" stroke="#1D1D1F" stroke-width="1" stroke-linecap="round"/><path d="M57.099999999999994 30.5Q57.099999999999994 27.5 58.8 27.5Q60.5 27.5 60.5 30.5Z" fill="#7FA899" stroke="#1D1D1F" stroke-width="1.1" stroke-linejoin="round"/><path d="M58.8 27.5V25.7" stroke="#1D1D1F" stroke-width="1" stroke-linecap="round"/><rect x="54.4" y="36" width="1.8" height="3.2" rx="0.9" fill="#1D1D1F"/><rect x="57.8" y="36" width="1.8" height="3.2" rx="0.9" fill="#1D1D1F"/><path d="M3 47V31H13V47Z" fill="#fff" stroke="#1D1D1F" stroke-width="1.3" stroke-linejoin="round"/><path d="M3.5999999999999996 31Q3.5999999999999996 27.4 5.6 27.4Q7.6 27.4 7.6 31Z" fill="#7FA899" stroke="#1D1D1F" stroke-width="1.1" stroke-linejoin="round"/><path d="M5.6 27.4V25.599999999999998" stroke="#1D1D1F" stroke-width="1" stroke-linecap="round"/><path d="M8.4 31Q8.4 27.4 10.4 27.4Q12.4 27.4 12.4 31Z" fill="#7FA899" stroke="#1D1D1F" stroke-width="1.1" stroke-linejoin="round"/><path d="M10.4 27.4V25.599999999999998" stroke="#1D1D1F" stroke-width="1" stroke-linecap="round"/><rect x="4.8" y="36.5" width="1.8" height="3.2" rx="0.9" fill="#1D1D1F"/><rect x="9.4" y="36.5" width="1.8" height="3.2" rx="0.9" fill="#1D1D1F"/><path d="M67 47V31H77V47Z" fill="#fff" stroke="#1D1D1F" stroke-width="1.3" stroke-linejoin="round"/><path d="M67.6 31Q67.6 27.4 69.6 27.4Q71.6 27.4 71.6 31Z" fill="#7FA899" stroke="#1D1D1F" stroke-width="1.1" stroke-linejoin="round"/><path d="M69.6 27.4V25.599999999999998" stroke="#1D1D1F" stroke-width="1" stroke-linecap="round"/><path d="M72.4 31Q72.4 27.4 74.4 27.4Q76.4 27.4 76.4 31Z" fill="#7FA899" stroke="#1D1D1F" stroke-width="1.1" stroke-linejoin="round"/><path d="M74.4 27.4V25.599999999999998" stroke="#1D1D1F" stroke-width="1" stroke-linecap="round"/><rect x="68.8" y="36.5" width="1.8" height="3.2" rx="0.9" fill="#1D1D1F"/><rect x="73.4" y="36.5" width="1.8" height="3.2" rx="0.9" fill="#1D1D1F"/><rect x="15.1" y="38" width="1.8" height="3.2" rx="0.9" fill="#1D1D1F"/><rect x="28.1" y="38" width="1.8" height="3.2" rx="0.9" fill="#1D1D1F"/><rect x="50.1" y="38" width="1.8" height="3.2" rx="0.9" fill="#1D1D1F"/><rect x="63.1" y="38" width="1.8" height="3.2" rx="0.9" fill="#1D1D1F"/><path d="M31 47V23H49V47Z" fill="#fff" stroke="#1D1D1F" stroke-width="1.3" stroke-linejoin="round"/><path d="M31 23V18.5H34V23" fill="#fff" stroke="#1D1D1F" stroke-width="1.3" stroke-linejoin="round"/><path d="M30.7 18.5Q30.7 15.1 32.5 15.1Q34.3 15.1 34.3 18.5Z" fill="#7FA899" stroke="#1D1D1F" stroke-width="1" stroke-linejoin="round"/><path d="M32.5 15.1V13.299999999999999" stroke="#1D1D1F" stroke-width="1" stroke-linecap="round"/><path d="M46 23V18.5H49V23" fill="#fff" stroke="#1D1D1F" stroke-width="1.3" stroke-linejoin="round"/><path d="M45.7 18.5Q45.7 15.1 47.5 15.1Q49.3 15.1 49.3 18.5Z" fill="#7FA899" stroke="#1D1D1F" stroke-width="1" stroke-linejoin="round"/><path d="M47.5 15.1V13.299999999999999" stroke="#1D1D1F" stroke-width="1" stroke-linecap="round"/><path d="M36.5 23V16.5H43.5V23" fill="#fff" stroke="#1D1D1F" stroke-width="1.3" stroke-linejoin="round"/><rect x="38" y="18.3" width="1.4" height="2.8" rx="0.7" fill="#1D1D1F"/><rect x="40.6" y="18.3" width="1.4" height="2.8" rx="0.7" fill="#1D1D1F"/><path d="M35.6 16.5Q35.6 7.6 40 7.1Q44.4 7.6 44.4 16.5Z" fill="#7FA899" stroke="#1D1D1F" stroke-width="1.3" stroke-linejoin="round"/><path d="M37.9 11.4Q40 9.9 42.1 11.4" fill="none" stroke="#fff" stroke-width=".8" opacity=".7"/><rect x="39" y="4.4" width="2" height="2.8" fill="#1D1D1F"/><path d="M40 4.4V2.6" stroke="#1D1D1F" stroke-width="1"/><circle cx="40" cy="1.9" r="1.2" fill="#D9A21B"/><rect x="33.4" y="26.5" width="1.8" height="3.2" rx="0.9" fill="#1D1D1F"/><rect x="39.1" y="26.5" width="1.8" height="3.2" rx="0.9" fill="#1D1D1F"/><rect x="44.8" y="26.5" width="1.8" height="3.2" rx="0.9" fill="#1D1D1F"/><path d="M37.5 45V39.5a2.5 2.5 0 0 1 5 0V45Z" fill="#1D1D1F"/><path d="M35.5 45H44.5M34.5 46.5H45.5" stroke="#1D1D1F" stroke-width=".9"/><circle cx="14.6" cy="34" r=".75" fill="#F2B630"/><circle cx="16.6" cy="34" r=".75" fill="#F2B630"/><circle cx="28" cy="34" r=".75" fill="#F2B630"/><circle cx="30" cy="34" r=".75" fill="#F2B630"/><circle cx="50" cy="34" r=".75" fill="#F2B630"/><circle cx="52" cy="34" r=".75" fill="#F2B630"/><circle cx="63.4" cy="34" r=".75" fill="#F2B630"/><circle cx="65.4" cy="34" r=".75" fill="#F2B630"/><circle cx="35.6" cy="23" r=".75" fill="#F2B630"/><circle cx="38" cy="23" r=".75" fill="#F2B630"/><circle cx="40.4" cy="23" r=".75" fill="#F2B630"/><circle cx="42.8" cy="23" r=".75" fill="#F2B630"/><circle cx="45.2" cy="23" r=".75" fill="#F2B630"/><path d="M2 48.5H78" stroke="#1D1D1F" stroke-width="1.6" stroke-linecap="round"/><path d="M10 52.5H36M44 52.5H70" stroke="#B9B9BF" stroke-width="1.3" stroke-linecap="round"/><path d="M18 56H30M50 56H62" stroke="#D2D2D7" stroke-width="1.2" stroke-linecap="round"/><rect x="2" y="5" width="16" height="11" rx="1.6" fill="#C8302A"/><text x="10" y="13" text-anchor="middle" font-size="7.4" font-weight="600" font-family="Fraunces,Georgia,serif" fill="#fff">Vic</text></svg></span><span>dating.zhumian.ca</span></div></footer>
+<div class="toast" id="toast"><i class="fa-regular fa-envelope"></i><span></span></div>
+
+<script>
+const T={
+ en:{brand:"Mian",navBox:"What's in the box",navFeat:"Features",navSpecs:"Tech specs",
+  new:"New",name:"Mian",tagline:"Makes you laugh. <span class='mark'><em>Gives great hugs.</em></span>",status:"In stock · Currently single",
+  cartBtn:"Add to Cart",contact:"Contact me",tap:"Tap for the next one",ph:"Photo",
+  coreEyebrow:"What's in the box",coreTitle:"Date me, and <em>this comes standard.</em>",
+  c1:"Shows up when you're down",c1s:"Bad day? Text me. Bubble tea and a hug are on the way.",
+  c2:"Cooks when you're hungry",c2s:"Tell me what you're craving. The kitchen's mine.",
+  c3:"In your corner",c3s:"Big plans or small ones, I'm on your side.",
+  c4:"Actually listens",c4s:"Vent, ramble, overthink out loud. I'm here for all of it.",
+  boxEyebrow:"Bonus",boxTitle:"And a few <em>extras.</em>",boxSub:"No extra charge. Never expires.",
+  p1:"iCloud 2TB Family Plan",p1s:"Room for every photo of us.",p2:"YouTube Premium",p2s:"Never sit through an ad again.",
+  p3:"Costco Membership",p3s:"$1.50 hot dogs, as many as you want.",p4:"24/7 Tech Support",p4s:"Wi-Fi, printers, your parents' phones. I fix them all.",
+  p5:"Your Personal Photographer",p5s:"Retakes until you like it.",p5q:"“Don't move. This one's the one.”",
+  featEyebrow:"Features",featTitle:"How I spend <em>my weekends.</em>",
+  h1:"Photography",h1s:"My camera's always with me, and I'm great at taking photos of you.",
+  h2:"Scenic drives",h2s:"No destination needed. I'll bring the snacks and the playlist.",
+  h3:"Hiking, sometimes",h3s:"When the weekend weather's nice, I head for the trails.",
+  h4:"Camping",h4s:"Once or twice a year, mostly for the stars.",
+  specEyebrow:"Tech specs",specSub:"Model year 2026. Runs smoothly. No bad habits.",
+  s1:"Height",s2:"Weight",s3:"Based in",s3v:"Victoria, BC, Canada",s3n:"Ocean views included.",s9:"Origin",s9v:"Anhui, China",s9n:"Imported. Fully localized.",s4:"Languages",s5:"Smoking",s5v:"None",s5n:"Fully electric. Zero emissions.",
+  s6:"Alcohol",s6v:"2–3 times a year",s6n:"One drink and my face turns red.",s7:"Battery",s7v:"Lasts through late-night calls",s8:"Warranty",s8v:"Lifetime. No returns.",
+  ctaTitle:"Only one <em>available.</em>",left:"Stock: 1",ship:"Free shipping. Smiles included.",
+  foot:"Designed in Anhui. Assembled in Victoria.",
+  toastCart:"Added to cart. Opening an email to Mian",toastMail:"Opening an email to Mian"},
+ zh:{brand:"朱勉",navBox:"标配",navFeat:"兴趣爱好",navSpecs:"技术规格",
+  new:"新品",name:"朱勉",tagline:"会逗你开心，<span class='mark'><em>也很会疼人。</em></span>",status:"现货 · 目前单身",
+  cartBtn:"加入购物车",contact:"跟我聊聊",tap:"点一下换一张",ph:"照片",
+  coreEyebrow:"标配",coreTitle:"跟我在一起，<em>这些都是标配。</em>",
+  c1:"心情不好，随叫随到",c1s:"不开心就喊我，奶茶和抱抱马上到。",
+  c2:"饿了，有人给你做饭",c2s:"想吃啥直接说，厨房交给我。",
+  c3:"你想做的事，我都支持",c3s:"不管大事小事，我都站你这边。",
+  c4:"你说，我在听",c4s:"吐槽也好，碎碎念也好，我都爱听。",
+  boxEyebrow:"附赠",boxTitle:"还有点<em>小福利。</em>",boxSub:"不额外收费，长期有效。",
+  p1:"iCloud 2TB 家庭共享",p1s:"我们的照片随便存。",p2:"YouTube Premium",p2s:"看视频不用再等广告。",
+  p3:"Costco 会员",p3s:"1.5 刀热狗管够。",p4:"24/7 技术支持",p4s:"WiFi、打印机、爸妈的手机，都归我修。",
+  p5:"专属摄影师",p5s:"拍到你满意为止。",p5q:"「别动，这张绝对好看。」",
+  featEyebrow:"兴趣爱好",featTitle:"周末<em>一般这么过。</em>",
+  h1:"摄影",h1s:"走到哪拍到哪，帮你拍照也很拿手。",
+  h2:"开车闲逛",h2s:"没目的地也能开一下午，零食和歌单我来准备。",
+  h3:"偶尔徒步",h3s:"天气好的周末，会去山里走走。",
+  h4:"露营",h4s:"一年一两次，主要是为了看星星。",
+  specEyebrow:"技术规格",specSub:"2026 款，性能稳定，无不良嗜好。",
+  s1:"身高",s2:"体重",s3:"现居",s3v:"加拿大 BC 省维多利亚",s3n:"附带海景。",s9:"产地",s9v:"中国安徽",s9n:"原装进口，已完成本地化。",s4:"语言",s5:"吸烟",s5v:"不抽烟",s5n:"纯电版，零排放。",
+  s6:"饮酒",s6v:"一年两三次",s6n:"一杯就脸红。",s7:"续航",s7v:"陪你聊到半夜没问题",s8:"售后",s8v:"终身保修，不退不换",
+  ctaTitle:"仅此一位，<em>先到先得。</em>",left:"库存：1",ship:"包邮，还包你开心。",
+  foot:"安徽原产 · 维多利亚组装",
+  toastCart:"已加入购物车，马上给朱勉发邮件",toastMail:"打开邮件，给朱勉写点什么吧"}
+};
+let saved=null;try{saved=localStorage.getItem('lang')}catch(e){}
+let lang=saved||((navigator.language||'en').toLowerCase().startsWith('zh')?'zh':'en');
+
+function render(){
+  document.documentElement.lang=lang;
+  document.querySelectorAll('[data-i]').forEach(el=>el.textContent=T[lang][el.dataset.i]);
+  document.querySelectorAll('[data-h]').forEach(el=>el.innerHTML=T[lang][el.dataset.h]);
+  document.querySelectorAll('.pl').forEach(el=>el.textContent=T[lang].ph);
+  document.querySelectorAll('.lang button').forEach(b=>b.classList.toggle('on',b.dataset.l===lang));
+  document.title=T[lang].name;
+}
+document.querySelectorAll('.lang button').forEach(b=>b.onclick=()=>{lang=b.dataset.l;try{localStorage.setItem('lang',lang)}catch(e){}render();});
+
+/* deck */
+const deck=document.getElementById('deck');const tints=['#E8E8ED','#E3E8EF','#ECE8E1','#E4EAE5'];let order=[0,1,2,3];
+tints.forEach((c,k)=>{const el=document.createElement('div');el.className='dcard';el.style.background=c;el.innerHTML=`<div class="ph"><i class="fa-solid fa-camera"></i><span class="pl"></span><span>${k+1} / 4</span></div>`;deck.appendChild(el);});
+function layoutDeck(){const cs=[...deck.children];order.forEach((k,p)=>{const r=[-3,4,-7,6][p],x=[0,10,-12,14][p],y=p*6;
+  Object.assign(cs[k].style,{zIndex:10-p,opacity:p>2?0:1,transform:`translate(${x}px,${y}px) rotate(${r}deg) scale(${1-p*.035})`});});}
+deck.onclick=e=>{const top=deck.children[order[0]];top.style.transform='translate(-120%,-6%) rotate(-24deg)';hearts(e,deck);setTimeout(()=>{order.push(order.shift());layoutDeck();},260);};
+layoutDeck();
+
+/* slideshows */
+document.querySelectorAll('.show').forEach(s=>{const n=+s.dataset.n;
+  s.innerHTML='<div class="track">'+Array.from({length:n},(_,i)=>`<div class="slide"><div class="ph"><i class="fa-solid fa-camera"></i><span class="pl"></span><span>${i+1} / ${n}</span></div></div>`).join('')+'</div>'+
+  '<button class="arrow prev" aria-label="Previous"><i class="fa-solid fa-chevron-left"></i></button><button class="arrow next" aria-label="Next"><i class="fa-solid fa-chevron-right"></i></button>'+
+  '<div class="dots">'+Array.from({length:n},(_,i)=>`<button class="${i?'':'on'}" aria-label="Photo ${i+1}"></button>`).join('')+'</div>';
+  const tr=s.querySelector('.track'),dots=[...s.querySelectorAll('.dots button')];
+  const idx=()=>Math.round(tr.scrollLeft/tr.clientWidth);
+  const go=i=>tr.scrollTo({left:Math.max(0,Math.min(n-1,i))*tr.clientWidth,behavior:'smooth'});
+  tr.addEventListener('scroll',()=>dots.forEach((d,j)=>d.classList.toggle('on',j===idx())));
+  dots.forEach((d,j)=>d.onclick=()=>go(j));
+  s.querySelector('.prev').onclick=()=>go(idx()-1);s.querySelector('.next').onclick=()=>go(idx()+1);
+  tr.querySelectorAll('.slide').forEach(sl=>sl.onclick=e=>hearts(e,sl));
+});
+
+/* actions */
+const toast=document.getElementById('toast');let th;
+document.querySelectorAll('[data-act]').forEach(b=>b.onclick=()=>{
+  const isCart=b.dataset.act==='cart';
+  if(isCart){const c=document.getElementById('cart');c.classList.add('has');c.classList.remove('bump');void c.offsetWidth;c.classList.add('bump');}
+  toast.querySelector('span').textContent=isCart?T[lang].toastCart:T[lang].toastMail;
+  toast.classList.add('show');clearTimeout(th);th=setTimeout(()=>toast.classList.remove('show'),2400);
+  /* real site: location.href='mailto:…?subject=…' */
+});
+
+function hearts(e,el){const r=el.getBoundingClientRect();const c=['#1F6FEB','#FFC93C','#1F6FEB','#E8735A','#1D1D1F','#FFC93C'];
+  for(let i=0;i<6;i++){const h=document.createElement('i');h.className='heart fa-solid '+(i%3===2?'fa-star':'fa-heart');h.style.color=c[i];
+    h.style.left=(e.clientX-r.left-10+(Math.random()*40-20))+'px';h.style.top=(e.clientY-r.top-10)+'px';
+    h.style.setProperty('--dx',(Math.random()*90-45)+'px');h.style.animationDelay=(i*55)+'ms';el.appendChild(h);setTimeout(()=>h.remove(),1600);}}
+
+/* reveal on scroll */
+const io=new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target);}}),{threshold:.12,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.reveal').forEach((el,i)=>{el.style.transitionDelay=(el.parentElement.classList.contains('tiles')||el.parentElement.classList.contains('core-list')||el.parentElement.classList.contains('feat-grid')?([...el.parentElement.children].indexOf(el)*70):0)+'ms';io.observe(el);});
+
+render();
+</script>
+</body>
+</html>

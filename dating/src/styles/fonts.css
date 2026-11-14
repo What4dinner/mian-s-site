@@ -1,0 +1,16 @@
+/* All fonts are self-hosted from the build output (no Google Fonts / CDN: WeChat in mainland China).
+   The Chinese fonts (LXGW WenKai + Noto Sans SC) are declared in cjk.generated.css, which main.js loads
+   after first paint so ~18 KB of @font-face rules don't block rendering. Until then Chinese text uses
+   PingFang SC / system fonts. */
+@import '@fontsource-variable/fraunces/full.css';
+@import '@fontsource-variable/fraunces/full-italic.css';
+@import '@fontsource-variable/geist/index.css';
+
+/* Metric-matched fallbacks so the hero doesn't jump when Fraunces arrives (spec §8, CLS).
+   Ratios measured in Edge: Fraunces/Georgia width = 0.744 upright (name), 0.786 italic (tagline). */
+@font-face{font-family:"Fraunces Fallback";font-style:normal;src:local("Georgia");size-adjust:74.4%}
+@font-face{font-family:"Fraunces Fallback";font-style:italic;src:local("Georgia Italic"),local("Georgia-Italic");size-adjust:78.6%}
+
+/* Digits in Chinese display text: LXGW's numerals look handwritten next to the Geist numbers
+   elsewhere, so 0–9 come from Geist via a digits-only face listed before LXGW. */
+@font-face{font-family:"Digits";font-style:normal;font-weight:100 900;font-display:swap;src:url('../../../node_modules/@fontsource-variable/geist/files/geist-latin-wght-normal.woff2') format('woff2');unicode-range:U+0030-0039}

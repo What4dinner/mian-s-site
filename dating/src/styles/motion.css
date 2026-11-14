@@ -1,0 +1,23 @@
+/* Keyframes, reveal, toast and hearts. */
+@keyframes jelly{30%{transform:scale(1.12,.88)}50%{transform:scale(.94,1.06)}70%{transform:scale(1.03,.97)}100%{transform:none}}
+@keyframes ping{to{transform:scale(3);opacity:0}}
+/* reveal */
+.js .reveal{opacity:0;transform:translateY(28px) scale(.98);transition:opacity .7s var(--ease),transform .9s var(--spring)}
+.js .reveal.in{opacity:1;transform:none}
+/* toast + hearts */
+.toast{position:fixed;left:50%;bottom:24px;z-index:60;transform:translate(-50%,30px);opacity:0;background:var(--ink);color:#fff;font-size:14px;padding:12px 18px;border-radius:14px;display:flex;gap:10px;align-items:center;transition:all .45s var(--spring);pointer-events:none;white-space:nowrap}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.heart{position:absolute;font-size:20px;pointer-events:none;animation:float 1.3s ease-out forwards;z-index:5}
+@keyframes float{0%{opacity:1;transform:translate(0,0) scale(.5)}100%{opacity:0;transform:translate(var(--dx),-150px) scale(1.25)}}
+
+/* Hero enters with CSS alone, so its text paints as soon as the CSS arrives (no wait for JS). */
+.js .hero .reveal{opacity:1;transform:none;animation:hero-in .9s var(--spring) both}
+.js .hero .reveal + .reveal{animation-delay:.12s}
+@keyframes hero-in{from{opacity:0;transform:translateY(28px) scale(.98)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .js .reveal{opacity:1;transform:none}
+}
+.toast{white-space:normal;width:max-content;max-width:calc(100vw - 32px)}
+.toast.selectable{pointer-events:auto;user-select:text;-webkit-user-select:text}

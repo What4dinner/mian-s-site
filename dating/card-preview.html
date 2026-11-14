@@ -1,0 +1,24 @@
+<!doctype html>
+<!-- Dev-only preview of the share card (npm run dev:dating → /card-preview.html). Not part of the build. -->
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>Card preview</title>
+<style>body{margin:0;padding:20px;background:#ddd;display:flex;gap:20px;align-items:flex-start}img{width:500px;border-radius:12px;box-shadow:0 4px 20px rgba(0,0,0,.2)}</style>
+</head>
+<body>
+<script type="module">
+  import './src/styles/fonts.css'
+  import './src/styles/cjk.generated.css'
+  import { PHOTO_SETS } from './src/photo-sets.js'
+  import { renderCardUrl } from './src/card.js'
+  const siteQr = Object.values(import.meta.glob('./src/generated/site-qr.png', { eager: true, import: 'default', query: '?url' }))[0]
+  for (const lang of ['zh', 'en']) {
+    const img = document.createElement('img')
+    img.src = await renderCardUrl(lang, { photoSrc: PHOTO_SETS.hero[0]?.img.src, qrSrc: siteQr })
+    document.body.appendChild(img)
+  }
+  document.body.dataset.done = '1'
+</script>
+</body>
+</html>

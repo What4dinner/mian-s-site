@@ -23,3 +23,13 @@ dist-ssr
 *.sln
 *.sw?
 .env
+
+# Brainstorm mockups
+.superpowers/
+dist-dating
+dating/src/styles/cjk.generated.css
+# Dating photos: originals keep GPS metadata and this repo is public
+dating/photos/*/*
+!dating/photos/*/.gitkeep
+dating/photos/*.*
+dating/src/generated/

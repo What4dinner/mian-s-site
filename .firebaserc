@@ -1,5 +1,13 @@
 {
   "projects": {
     "default": "mian-site"
+  },
+  "targets": {
+    "mian-site": {
+      "hosting": {
+        "main": ["mian-site"],
+        "dating": ["zhumian-dating"]
+      }
+    }
   }
 }
