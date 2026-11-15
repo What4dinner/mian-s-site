@@ -277,7 +277,7 @@ Strings marked `<em>…</em>` are the gray half of a two-tone headline. `<mark>`
 - **Search engines: the site is public and indexable** *(Mian's decision)*.
   - Include a real `<title>` and meta description in the HTML itself (English by default), `<link rel="canonical" href="https://dating.zhumian.ca/">`, and a `robots.txt` that allows crawling.
   - Don't add `noindex`.
-- **Analytics: none.** Clarity was planned, then dropped by Mian on 2026-11-14. No third-party scripts at all.
+- **Analytics: Microsoft Clarity** (dropped on 2026-11-14, then restored at Mian's request). Separate project from the resume site; ID in VITE_DATING_CLARITY_ID. Loaded after the page is idle, skipped when the ID is unset, failures swallowed (it may be blocked in mainland China). Events: visit (tags: lang, in_wechat), add_to_cart, contact_me, copy_wechat_id, write_email, share_open, save_card, share_link, deck_next, lang_switch.
 - **Accessibility:**
   - Real `<button>`/`<a>` elements.
   - Visible focus rings.

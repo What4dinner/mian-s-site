@@ -31,6 +31,7 @@ Drop the photos into these folders. No code changes are needed.
 | `VITE_EMAIL` | The address the Add to Cart and Contact me buttons email. It is already set (shared with the resume site). The build fails if it is missing. |
 | `VITE_WECHAT_QR` | The link inside your WeChat QR code (decoded from your original code). The build turns it into a crisp QR image with the WeChat logo. Leave it out to hide the QR. |
 | `VITE_WECHAT_ID` | Your WeChat ID, shown with a Copy button. On a phone browser, copying also opens WeChat. |
+| `VITE_DATING_CLARITY_ID` | Microsoft Clarity project ID for this site (a separate project from the resume site). Leave it out to turn analytics off. Events: visit (tagged lang, in_wechat), add_to_cart, contact_me, copy_wechat_id, write_email, share_open, save_card, share_link, deck_next, lang_switch. |
 
 
 ## Commands (run from the repo root)

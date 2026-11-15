@@ -14,6 +14,7 @@ import { mailtoHref, isWeChat, scheduleMail, watchMailFallback } from './mail.js
 import { sharePage } from './share.js'
 import { renderCardUrl } from './card.js'
 import { initCardSheet } from './card-sheet.js'
+import { track, loadAnalytics } from './analytics.js'
 
 // Tells the <head> failsafe the app started; otherwise it un-hides the scroll-reveal content after 2.5s.
 window.__datingReady = true
@@ -36,7 +37,7 @@ const deckEl = document.getElementById('deck')
 initDeck(deckEl, slotsFor(PHOTO_SETS.hero, PLACEHOLDER_COUNTS.hero), {
   lang: () => lang,
   reducedMotion,
-  onNext: () => {},
+  onNext: () => track('deck_next'),
 })
 deckEl.addEventListener('click', (e) => burstAt(e, deckEl, reducedMotion))
 
@@ -58,6 +59,7 @@ const wechatId = import.meta.env.VITE_WECHAT_ID
 const hasWechat = initWechat(wechatCard, { qrUrl, wechatId }, { alt: t(lang, 'wechatAlt') })
 if (!hasWechat) document.querySelector('.contact').classList.add('solo')
 wechatCard.querySelector('.copy-id').addEventListener('click', () => {
+  track('copy_wechat_id')
   copyWechatId(wechatId, lang, {
     clipboard: navigator.clipboard,
     isMobile: /iPhone|iPad|iPod|Android/i.test(navigator.userAgent),
@@ -73,6 +75,7 @@ document.querySelectorAll('.lang [data-l]').forEach((b) => {
     if (b.dataset.l === lang) return
     saveLang(b.dataset.l)
     setLang(b.dataset.l)
+    track('lang_switch', { lang })
   })
 })
 
@@ -86,6 +89,7 @@ function goToContact() {
 document.querySelectorAll('a[data-act]').forEach((a) => {
   a.addEventListener('click', (e) => {
     e.preventDefault()
+    track(a.dataset.act === 'cart' ? 'add_to_cart' : 'contact_me')
     if (a.dataset.act === 'cart') {
       cart.classList.add('has')
       jelly(cart)
@@ -97,6 +101,7 @@ document.querySelectorAll('a[data-act]').forEach((a) => {
   })
 })
 cart.addEventListener('click', () => {
+  track('contact_me')
   jelly(cart)
   goToContact()
 })
@@ -104,7 +109,8 @@ cart.addEventListener('click', () => {
 // "Write an email" on the email card
 mailLink.addEventListener('click', (e) => {
   e.preventDefault()
-  const showEmail = () => showToast(t(lang, 'toastEmail', { email }), 10000, { selectable: true })
+  track('write_email')
+  const showEmail =() => showToast(t(lang, 'toastEmail', { email }), 10000, { selectable: true })
   if (inWeChat) return showEmail() // WeChat ignores mailto:
   showToast(t(lang, 'toastMail'))
   scheduleMail(mailtoHref(email, lang), 600, (href) => {
@@ -129,9 +135,21 @@ const cardSheet = initCardSheet(document.getElementById('card-sheet'), {
   lang: () => lang,
   inWeChat,
   toast: (text) => showToast(text, 3000),
-  shareLink,
+  shareLink: () => {
+    track('share_link')
+    return shareLink()
+  },
 })
-document.querySelector('.share-btn').addEventListener('click', () => cardSheet.open())
+document.querySelector('.share-btn').addEventListener('click', () => {
+  track('share_open')
+  cardSheet.open()
+})
+document.querySelector('#card-sheet .card-save').addEventListener('click', () => track('save_card'))
 
 setLang(lang)
 initReveal(document, reducedMotion)
+
+// Microsoft Clarity (separate project from the resume site). Loads after the page is idle;
+// skipped when VITE_DATING_CLARITY_ID is unset, and harmless if blocked (e.g. in mainland China).
+track('visit', { lang, in_wechat: inWeChat ? 'yes' : 'no' })
+loadAnalytics(import.meta.env.VITE_DATING_CLARITY_ID)
