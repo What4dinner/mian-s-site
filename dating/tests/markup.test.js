@@ -146,7 +146,8 @@ test('card sheet markup exists and starts hidden', () => {
 })
 
 test('referral bonus line sits with the share button', () => {
-  expect(doc.querySelector('.share .referral [data-i=referral]')).not.toBeNull()
+  const r = doc.querySelector('.share .referral')
+  for (const k of ['referralTitle', 'referral1', 'referral2']) expect(r.querySelector(`[data-i=${k}]`), k).not.toBeNull()
 })
 
 test('specs are trimmed: height & weight and smoking & drinking are single rows', () => {

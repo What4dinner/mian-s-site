@@ -109,9 +109,13 @@ test('status is the playful "premium good guy, single" line', () => {
   expect(T.zh.shareTitle).toBe('朱勉 · 精品好男人，名草无主')
 })
 
-test('referral bonus wording', () => {
-  expect(T.zh.referral).toBe('推荐有礼：介绍成功的，婚礼红包免了，还给你留主桌。')
-  expect(T.en.referral).toBe('Referral bonus: set us up and skip the wedding gift. Head-table seat included.')
+test('referral bonus wording: two tiers', () => {
+  expect(T.zh.referralTitle).toBe('推荐有礼')
+  expect(T.zh.referral1).toBe('推荐了就有：来 UVic，我请你喝杯咖啡。')
+  expect(T.zh.referral2).toBe('介绍成功：婚礼红包免了，还给你留主桌。')
+  expect(T.en.referral1).toBe("Just for referring: come by UVic, coffee's on me.")
+  expect(T.en.referral2).toBe('If it works out: skip the wedding gift. Head-table seat included.')
+  expect(T.en).not.toHaveProperty('referral')
 })
 
 test('merged spec rows read naturally', () => {

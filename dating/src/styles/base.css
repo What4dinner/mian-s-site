@@ -304,3 +304,9 @@ html.sheet-open{overflow:hidden}
 .issue-list small{display:block;margin-top:4px;font-size:14px;color:var(--ink-2)}
 .issues-note{margin:14px 0 0;font-size:13px;color:var(--ink-2)}
 html:lang(zh) .issue-list p{font-family:"Digits","LXGW WenKai Medium","Noto Sans SC",serif;font-weight:400;font-synthesis:none;font-size:17px}
+
+/* two-tier referral bonus */
+.referral{align-items:flex-start;padding:12px 16px}
+.referral svg.fa{margin-top:3px}
+.referral strong{display:block;font-weight:600;margin-bottom:2px}
+.referral span{display:block}
