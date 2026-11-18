@@ -127,21 +127,8 @@ test('merged spec rows read naturally', () => {
   expect(T.en).not.toHaveProperty('s6')
 })
 
-test('known issues: four items, each with a workaround', () => {
-  for (const l of ['en', 'zh']) {
-    for (const k of ['issuesTitle', 'workaround', 'issuesNote', 'i1', 'i1w', 'i2', 'i2w', 'i3', 'i3w', 'i4', 'i4w']) expect(T[l][k], l + k).toBeTruthy()
-  }
-  expect(T.zh.issuesNote).toBe('以上问题均不影响正常使用。')
-  expect(T.zh.workaround).toBe('临时解决方法：')
-})
 
-test("known issues are funny bug reports of Mian's real habits", () => {
-  expect(T.zh.i1).toBe('对美食没什么追求，曾经认真想过：要是能只喝营养液就好了。')
-  expect(T.zh.i1w).toBe('好消息：给你做饭的手艺不受影响。')
-  expect(T.zh.i2).toBe('不爱做计划，想去哪就去哪，随心所欲。')
-  expect(T.zh.i2w).toBe('行程你来定，我负责开车。')
-  expect(T.zh.i3).toBe('连下一周雨，会自动进入「开车出去转转」模式。')
-  expect(T.zh.i3w).toBe('无法关闭，但可以带上你。')
-  expect(T.zh.i4).toBe('看到好光线会突然停下，原地拍十分钟。')
-  expect(T.zh.i4w).toBe('这十分钟里，你会收获很多好看的照片。')
+
+test('known issues section was removed', () => {
+  for (const k of ['issuesTitle', 'workaround', 'issuesNote', 'i1', 'i1w', 'i4', 'i4w']) expect(T.en).not.toHaveProperty(k)
 })

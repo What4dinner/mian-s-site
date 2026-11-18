@@ -3,7 +3,7 @@ import {
   faBagShopping, faChevronRight, faChevronLeft, faCamera, faCarSide, faPersonHiking,
   faCampground, faRulerVertical, faWeightScale, faLocationDot, faEarthAsia, faLanguage,
   faBanSmoking, faWineGlass, faBatteryFull, faShieldHeart, faHeart, faStar,
-  faCakeCandles, faBriefcase, faHouse, faPaw, faCheck, faArrowUpFromBracket, faXmark, faDownload, faGift, faBug,
+  faCakeCandles, faBriefcase, faHouse, faPaw, faCheck, faArrowUpFromBracket, faXmark, faDownload, faGift,
 } from '@fortawesome/free-solid-svg-icons'
 import { faHandPointer, faEnvelope } from '@fortawesome/free-regular-svg-icons'
 import { faWeixin } from '@fortawesome/free-brands-svg-icons'
@@ -36,7 +36,6 @@ const MAP = {
   'solid:xmark': faXmark,
   'solid:download': faDownload,
   'solid:gift': faGift,
-  'solid:bug': faBug,
   'brands:weixin': faWeixin,
   'regular:hand-pointer': faHandPointer,
   'regular:envelope': faEnvelope,

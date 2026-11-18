@@ -157,12 +157,6 @@ test('specs are trimmed: height & weight and smoking & drinking are single rows'
   expect(doc.querySelector('[data-i=s1]').closest('.spec').querySelector('dd').textContent).toBe('178 cm · 70 kg')
 })
 
-test('known issues block follows the spec rows', () => {
-  const issues = doc.querySelector('.specs .issues')
-  expect(issues).not.toBeNull()
-  expect(issues.querySelectorAll('.issue-list li')).toHaveLength(4)
-  expect(issues.querySelector('[data-i=issuesNote]')).not.toBeNull()
-})
 
 test('Chinese display text uses Geist for digits (not the handwritten LXGW numerals)', () => {
   const fonts = fs.readFileSync(path.resolve(__dirname, '../src/styles/fonts.css'), 'utf8')
@@ -170,4 +164,8 @@ test('Chinese display text uses Geist for digits (not the handwritten LXGW numer
   const base = fs.readFileSync(path.resolve(__dirname, '../src/styles/base.css'), 'utf8')
   expect(base).toMatch(/html:lang\(zh\) \.note,html:lang\(zh\) \.traits li\{font-family:"Digits","LXGW WenKai Medium"/)
   expect(base).toMatch(/font-family:"Digits","LXGW WenKai Medium","Noto Sans SC",serif;font-style:normal;font-weight:400;font-synthesis:none\}/)
+})
+
+test('no known issues block', () => {
+  expect(doc.querySelector('.issues')).toBeNull()
 })

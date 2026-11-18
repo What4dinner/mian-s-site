@@ -20,7 +20,7 @@ test('plugin inlines, keeps class and style, leaves no <i data-fa>', () => {
 })
 
 test('every spec icon is mapped', () => {
-  expect(ICON_NAMES).toHaveLength(31)
+  expect(ICON_NAMES).toHaveLength(30)
 })
 
 test('brand icon for WeChat', () => {
